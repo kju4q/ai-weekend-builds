@@ -24,6 +24,8 @@ Each folder has everything you need:
 
 ## Who this is for
 
-Builders who want to stop watching tutorials and start shipping. Every project here is completable in a weekend and teaches you something you'll actually use.
+Developers comfortable with Python or Node.js, an Anthropic API key, and running commands in the terminal. Each project has starter code and a README that walks you through the setup.
+
+If you're newer to coding, start with the easy-mode projects, they're the most approachable.
 
 Made by [@qendresahhoti](https://instagram.com/qendresahhoti)
