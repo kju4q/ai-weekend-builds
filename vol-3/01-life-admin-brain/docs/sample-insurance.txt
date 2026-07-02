@@ -1,0 +1,23 @@
+AUTO INSURANCE POLICY SUMMARY (SAMPLE — FAKE DATA)
+
+Insurer: Evergreen Mutual Insurance
+Policy number: EM-8847213
+Named insured: Alex Jordan Doe
+Vehicle: 2018 Honda Civic
+Policy period: January 15, 2025 to July 15, 2025 (6-month term)
+
+COVERAGE
+- Bodily injury liability: $100,000 per person / $300,000 per accident
+- Property damage liability: $50,000
+- Collision: $500 deductible
+- Comprehensive: $250 deductible
+- Uninsured motorist: $100,000 per person
+- Roadside assistance: included
+
+PREMIUM. Total 6-month premium is $642, or $107 per month if paid monthly.
+
+DEDUCTIBLE REMINDER. For a windshield or hail claim, the comprehensive
+deductible of $250 applies. For an at-fault collision, the $500 deductible
+applies before coverage kicks in.
+
+RENEWAL. This policy renews automatically on July 15, 2025 unless cancelled.

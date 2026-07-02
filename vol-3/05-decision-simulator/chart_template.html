@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Decision Simulator</title>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: -apple-system, system-ui, sans-serif; background: #0f1420;
+         color: #e8ebf2; padding: 40px 20px; }
+  .wrap { max-width: 900px; margin: 0 auto; }
+  h1 { font-weight: 500; font-size: 26px; margin-bottom: 6px; }
+  .sub { color: #8a93a6; margin-bottom: 28px; font-size: 14px; }
+  canvas { width: 100%; height: 380px; background: #131a2a; border-radius: 14px; }
+  .legend { display: flex; gap: 24px; margin: 18px 0 28px; flex-wrap: wrap; }
+  .legend .item { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+  .swatch { width: 14px; height: 14px; border-radius: 4px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 16px; }
+  .card { background: #131a2a; border-radius: 14px; padding: 20px; }
+  .card h3 { font-size: 15px; margin-bottom: 12px; }
+  .row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 14px;
+         color: #b8c0d0; border-bottom: 1px solid rgba(255,255,255,.05); }
+  .row b { color: #e8ebf2; font-variant-numeric: tabular-nums; }
+  .win { font-size: 30px; font-weight: 600; margin: 4px 0 12px; }
+  .tip { position: fixed; pointer-events: none; background: #1c2740; border: 1px solid #2c3a5a;
+         padding: 6px 10px; border-radius: 8px; font-size: 12px; opacity: 0; transition: opacity .1s; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1 id="title"></h1>
+  <div class="sub" id="sub"></div>
+  <canvas id="chart"></canvas>
+  <div class="legend" id="legend"></div>
+  <div class="cards" id="cards"></div>
+</div>
+<div class="tip" id="tip"></div>
+
+<script>
+const RESULT = /*__DATA__*/;
+const COLORS = ["#6ea8fe", "#f4a15d", "#7dd0a0", "#c58cf0"];
+const fmt = n => (Math.abs(n) >= 1000 ? (n/1000).toFixed(0)+"k" : n.toFixed(0));
+const money = n => "$" + Math.round(n).toLocaleString();
+
+document.getElementById("title").textContent = RESULT.title;
+document.getElementById("sub").textContent =
+  RESULT.runs.toLocaleString() + " simulations · uncertain: " +
+  RESULT.uncertain_variables.join(", ");
+
+// ---- build histograms over a shared range ----
+const names = Object.keys(RESULT.outcomes);
+let lo = Infinity, hi = -Infinity;
+names.forEach(n => RESULT.outcomes[n].forEach(v => { if(v<lo)lo=v; if(v>hi)hi=v; }));
+const BINS = 45, span = (hi - lo) || 1, bw = span / BINS;
+const hist = {};
+names.forEach(n => {
+  const b = new Array(BINS).fill(0);
+  RESULT.outcomes[n].forEach(v => { let i = Math.floor((v-lo)/bw); if(i>=BINS)i=BINS-1; if(i<0)i=0; b[i]++; });
+  hist[n] = b;
+});
+const maxCount = Math.max(...names.flatMap(n => hist[n]));
+
+// ---- draw on canvas ----
+const cv = document.getElementById("chart");
+const tip = document.getElementById("tip");
+const PADL = 10, PADR = 10, PADT = 20, PADB = 34;
+function draw(){
+  const dpr = window.devicePixelRatio || 1;
+  const W = cv.clientWidth, H = cv.clientHeight;
+  cv.width = W*dpr; cv.height = H*dpr;
+  const ctx = cv.getContext("2d"); ctx.scale(dpr,dpr);
+  ctx.clearRect(0,0,W,H);
+  const plotW = W-PADL-PADR, plotH = H-PADT-PADB;
+  const x = v => PADL + ((v-lo)/span)*plotW;
+  const barW = plotW/BINS;
+
+  names.forEach((n, ni) => {
+    ctx.fillStyle = COLORS[ni%COLORS.length] + "b0";
+    hist[n].forEach((c,i) => {
+      const h = (c/maxCount)*plotH;
+      ctx.fillRect(PADL + i*barW, PADT+plotH-h, barW-1, h);
+    });
+    // median line
+    const m = RESULT.summary[n].median;
+    ctx.strokeStyle = COLORS[ni%COLORS.length]; ctx.lineWidth = 2; ctx.setLineDash([4,4]);
+    ctx.beginPath(); ctx.moveTo(x(m),PADT); ctx.lineTo(x(m),PADT+plotH); ctx.stroke();
+    ctx.setLineDash([]);
+  });
+  // x axis labels
+  ctx.fillStyle = "#8a93a6"; ctx.font = "12px system-ui"; ctx.textAlign = "center";
+  for(let t=0;t<=4;t++){ const v = lo + span*t/4; ctx.fillText(money(v), x(v), H-12); }
+  return {x, plotW, barW};
+}
+let geo = draw();
+window.addEventListener("resize", () => geo = draw());
+
+cv.addEventListener("mousemove", e => {
+  const r = cv.getBoundingClientRect();
+  const i = Math.floor((e.clientX - r.left - PADL) / geo.barW);
+  if(i<0||i>=BINS){ tip.style.opacity=0; return; }
+  const binLo = lo + i*bw;
+  let html = money(binLo)+" – "+money(binLo+bw)+"<br>";
+  names.forEach((n,ni)=> html += `<span style="color:${COLORS[ni%COLORS.length]}">●</span> ${n}: ${hist[n][i]}<br>`);
+  tip.innerHTML = html; tip.style.opacity = 1;
+  tip.style.left = (e.clientX+12)+"px"; tip.style.top = (e.clientY+12)+"px";
+});
+cv.addEventListener("mouseleave", ()=> tip.style.opacity=0);
+
+// ---- legend + summary cards ----
+document.getElementById("legend").innerHTML = names.map((n,ni)=>
+  `<div class="item"><span class="swatch" style="background:${COLORS[ni%COLORS.length]}"></span>${n}</div>`).join("");
+
+document.getElementById("cards").innerHTML = names.map((n,ni)=>{
+  const s = RESULT.summary[n], w = RESULT.win_rate[n];
+  return `<div class="card">
+    <h3 style="color:${COLORS[ni%COLORS.length]}">${n}</h3>
+    <div class="win">${Math.round(w*100)}%<span style="font-size:13px;color:#8a93a6"> of futures win</span></div>
+    <div class="row"><span>Median outcome</span><b>${money(s.median)}</b></div>
+    <div class="row"><span>Typical range (10–90%)</span><b>${money(s.p10)} – ${money(s.p90)}</b></div>
+    <div class="row"><span>Worst 5% of futures</span><b>${money(s.worst_5pct)}</b></div>
+    <div class="row"><span>Best / worst seen</span><b>${money(s.max)} / ${money(s.min)}</b></div>
+  </div>`;
+}).join("");
+</script>
+</body>
+</html>

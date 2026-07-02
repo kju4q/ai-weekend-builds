@@ -1,0 +1,18 @@
+{
+  "title": "Job A vs Job B over 3 years (total comp, higher is better)",
+  "runs": 10000,
+  "goal": "max",
+  "note": "Illustrative. Job A is a steady salary + reliable bonus. Job B is lower base but startup equity that only pays off if the company succeeds.",
+  "variables": {
+    "salary_a":   { "fixed": 165000 },
+    "bonus_a":    { "dist": "normal", "mean": 20000, "sd": 6000 },
+    "salary_b":   { "fixed": 140000 },
+    "equity_b":   { "dist": "triangular", "low": 0, "high": 900000, "mode": 120000 },
+    "b_succeeds": { "dist": "bernoulli", "p": 0.35 },
+    "years":      { "fixed": 3 }
+  },
+  "options": {
+    "Job A (stable)":  "(salary_a + bonus_a) * years",
+    "Job B (startup)": "salary_b * years + equity_b * b_succeeds"
+  }
+}

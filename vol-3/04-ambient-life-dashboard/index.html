@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Today</title>
+<style>
+  :root { --fg: #f4efe9; --muted: rgba(244,239,233,.62); }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: -apple-system, "SF Pro Display", system-ui, sans-serif;
+    color: var(--fg);
+    background: var(--sky, linear-gradient(180deg, #24344d, #4a5a78));
+    transition: background 4s ease;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* the celestial body drifts slowly across the sky */
+  .orb {
+    position: fixed; width: 120px; height: 120px; border-radius: 50%;
+    filter: blur(2px); opacity: .9; pointer-events: none;
+    transition: all 4s ease;
+    animation: drift 60s ease-in-out infinite alternate;
+  }
+  @keyframes drift { from { transform: translateY(0); } to { transform: translateY(18px); } }
+  .stars { position: fixed; inset: 0; pointer-events: none; opacity: 0; transition: opacity 4s; }
+  .star { position: absolute; width: 2px; height: 2px; background: #fff; border-radius: 50%;
+          animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100%{opacity:.2} 50%{opacity:.9} }
+
+  .wrap { position: relative; z-index: 2; height: 100%;
+          display: grid; grid-template-rows: auto 1fr auto;
+          padding: 6vh 7vw; gap: 4vh; }
+  .top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .clock { font-size: clamp(48px, 9vw, 120px); font-weight: 200; letter-spacing: -2px; line-height: 1; }
+  .date { font-size: clamp(15px, 2vw, 22px); color: var(--muted); margin-top: 8px; font-weight: 300; }
+  .weather { text-align: right; }
+  .temp { font-size: clamp(30px, 5vw, 56px); font-weight: 200; }
+  .wdesc { color: var(--muted); font-weight: 300; }
+
+  .middle { display: grid; grid-template-columns: 1.3fr 1fr; gap: 5vw; align-content: center; }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 2.5px;
+       color: var(--muted); font-weight: 500; margin-bottom: 18px; }
+  .event, .task { display: flex; gap: 16px; padding: 12px 0;
+                  border-bottom: 1px solid rgba(255,255,255,.07); font-weight: 300; }
+  .event .t { width: 62px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .event .n, .task span { font-size: clamp(16px, 1.8vw, 22px); }
+  .task .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted);
+               margin-top: 9px; flex: none; }
+  .empty { color: var(--muted); font-weight: 300; }
+
+  .foot { display: flex; justify-content: space-between; color: var(--muted);
+          font-size: 13px; font-weight: 300; }
+  .fade { animation: fadein 1.2s ease; }
+  @keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; } }
+</style>
+</head>
+<body>
+  <div class="orb" id="orb"></div>
+  <div class="stars" id="stars"></div>
+
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <div class="clock" id="clock">--:--</div>
+        <div class="date" id="date"></div>
+      </div>
+      <div class="weather">
+        <div class="temp" id="temp">--°</div>
+        <div class="wdesc" id="wdesc">—</div>
+      </div>
+    </div>
+
+    <div class="middle">
+      <div>
+        <h2>Today</h2>
+        <div id="events"><div class="empty">…</div></div>
+      </div>
+      <div>
+        <h2>On my mind</h2>
+        <div id="tasks"><div class="empty">…</div></div>
+      </div>
+    </div>
+
+    <div class="foot">
+      <span id="greeting"></span>
+      <span id="updated"></span>
+    </div>
+  </div>
+
+<script>
+// ---- day/night palette driven by the real hour ----
+const SKIES = {
+  dawn:  ['#2b2340', '#7d5a6b', '#e8a07a'],
+  day:   ['#3a6ea5', '#6fa3d1', '#a9cbe8'],
+  dusk:  ['#33304f', '#7a5a7d', '#e2865a'],
+  night: ['#0e1626', '#1b2740', '#2a3a5a'],
+};
+function phase(h){ if(h<6) return 'night'; if(h<9) return 'dawn';
+  if(h<17) return 'day'; if(h<20) return 'dusk'; return 'night'; }
+
+function paintSky(){
+  const now = new Date(), h = now.getHours();
+  const p = phase(h), c = SKIES[p];
+  document.body.style.setProperty('--sky',
+    `linear-gradient(180deg, ${c[0]} 0%, ${c[1]} 55%, ${c[2]} 100%)`);
+  // orb: sun by day, moon by night; position tracks the hour across the sky
+  const orb = document.getElementById('orb');
+  const isNight = (p === 'night');
+  const frac = Math.min(Math.max((h + now.getMinutes()/60 - 6) / 12, 0), 1); // 6am..6pm
+  orb.style.left = (5 + frac * 82) + 'vw';
+  orb.style.top  = (14 + Math.sin(frac * Math.PI) * -6 + (isNight ? 40 : 0)) + 'vh';
+  orb.style.background = isNight
+    ? 'radial-gradient(circle at 35% 35%, #f4f1e4, #cfc9b0)'
+    : 'radial-gradient(circle at 35% 35%, #fff6d8, #ffd27a)';
+  orb.style.boxShadow = isNight
+    ? '0 0 60px 10px rgba(240,240,220,.25)'
+    : '0 0 120px 30px rgba(255,214,120,.45)';
+  document.getElementById('stars').style.opacity = isNight ? 1 : 0;
+}
+
+function makeStars(){
+  const box = document.getElementById('stars');
+  for (let i = 0; i < 60; i++){
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random()*100 + 'vw';
+    s.style.top = Math.random()*70 + 'vh';
+    s.style.animationDelay = (Math.random()*4) + 's';
+    box.appendChild(s);
+  }
+}
+
+function tickClock(){
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  document.getElementById('date').textContent =
+    now.toLocaleDateString([], {weekday:'long', month:'long', day:'numeric'});
+  const h = now.getHours();
+  document.getElementById('greeting').textContent =
+    h<12 ? 'Good morning.' : h<18 ? 'Good afternoon.' : 'Good evening.';
+}
+
+async function refresh(){
+  try {
+    const d = await (await fetch('/api/data')).json();
+    document.getElementById('temp').textContent = d.weather.temp + '°';
+    document.getElementById('wdesc').textContent = d.weather.desc;
+    const ev = document.getElementById('events');
+    ev.innerHTML = d.events.length ? d.events.map(e =>
+      `<div class="event fade"><span class="t">${e.time||'—'}</span><span class="n">${e.title}</span></div>`
+    ).join('') : '<div class="empty">Nothing scheduled. A rare gift.</div>';
+    const tk = document.getElementById('tasks');
+    tk.innerHTML = d.tasks.length ? d.tasks.map(t =>
+      `<div class="task fade"><span class="dot"></span><span>${t}</span></div>`
+    ).join('') : '<div class="empty">Clear.</div>';
+    document.getElementById('updated').textContent =
+      'updated ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  } catch(e){
+    document.getElementById('updated').textContent = 'offline';
+  }
+}
+
+makeStars();
+paintSky();
+tickClock();
+refresh();
+setInterval(tickClock, 1000);
+setInterval(paintSky, 60*1000);      // re-evaluate the sky every minute
+setInterval(refresh, 5*60*1000);     // quietly refresh data every 5 minutes
+</script>
+</body>
+</html>

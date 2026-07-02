@@ -1,0 +1,16 @@
+PASSPORT DETAILS (SAMPLE — FAKE DATA)
+
+Document type: Passport
+Country of issue: United States
+Passport number: X12345678
+Surname: DOE
+Given names: ALEX JORDAN
+Nationality: USA
+Date of birth: 14 JUL 1990
+Place of birth: OREGON, USA
+Date of issue: 09 SEP 2019
+Date of expiration: 08 SEP 2029
+Authority: U.S. Department of State
+
+Note: Many countries require your passport to be valid for at least 6 months
+beyond your travel dates, so treat the practical expiry as March 2029.

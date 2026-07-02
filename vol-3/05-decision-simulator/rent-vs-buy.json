@@ -1,0 +1,20 @@
+{
+  "title": "Rent vs Buy over 5 years (net worth, higher is better)",
+  "runs": 10000,
+  "goal": "max",
+  "note": "Illustrative model with fake numbers. Outcomes are 5-year net worth in dollars. Edit the variables to your real situation.",
+  "variables": {
+    "home_price":    { "dist": "normal",  "mean": 500000, "sd": 15000 },
+    "appreciation":  { "dist": "normal",  "mean": 0.03,   "sd": 0.025 },
+    "mortgage_rate": { "fixed": 0.065 },
+    "upkeep":        { "dist": "triangular", "low": 4000, "high": 12000, "mode": 7000 },
+    "rent_monthly":  { "dist": "normal",  "mean": 2200,   "sd": 120 },
+    "rent_growth":   { "dist": "uniform", "low": 0.01,    "high": 0.05 },
+    "invest_return": { "dist": "normal",  "mean": 0.06,   "sd": 0.08 },
+    "years":         { "fixed": 5 }
+  },
+  "options": {
+    "Buy":  "home_price*(1+appreciation)**years - home_price*0.8 - home_price*0.8*mortgage_rate*years - upkeep*years",
+    "Rent": "home_price*0.2*(1+invest_return)**years - rent_monthly*12*years*(1+rent_growth)**(years/2)"
+  }
+}
