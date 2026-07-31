@@ -10,37 +10,47 @@ You have knowledge scattered everywhere: PDFs, notes, bookmarks, docs. A RAG ass
 
 ## What you need
 
-- Python 3.10+
+- Python 3.10+ (verified on 3.12)
 - [LangChain](https://python.langchain.com/) 
 - [ChromaDB](https://www.trychroma.com/) (local vector database, no account needed)
-- An Anthropic API key or OpenAI API key
+- An [Anthropic API key](https://console.anthropic.com/settings/keys)
 - Your documents (PDFs, markdown files, text files)
 
 ## Setup (15 minutes)
 
-### 1. Create your project
+### 1. Create a virtualenv
+
+From this folder (`03-personal-rag-assistant/`):
 
 ```bash
-mkdir rag-assistant && cd rag-assistant
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate
 ```
 
 ### 2. Install dependencies
 
 ```bash
-pip install langchain langchain-anthropic langchain-community chromadb pypdf tiktoken
+pip install -r requirements.txt
 ```
+
+This pulls in `sentence-transformers`, which pulls in torch — it's a large download, give it a few minutes.
 
 ### 3. Set your API key
 
 ```bash
-export ANTHROPIC_API_KEY=your_key_here
+cp .env.example .env
+# open .env and paste your key into ANTHROPIC_API_KEY=
 ```
 
-### 4. Create the starter script
+`rag.py` reads the key from the environment, so export what's in `.env` before running:
 
-Save this as `rag.py`:
+```bash
+set -a && source .env && set +a
+```
+
+### 4. The script
+
+The whole thing lives in `rag.py` in this folder — here it is:
 
 ```python
 import os
@@ -164,6 +174,8 @@ cp ~/path/to/your/research.md docs/
 ```bash
 python rag.py
 ```
+
+First run downloads the `all-MiniLM-L6-v2` embedding model (~90MB) and builds `chroma_db/`.
 
 ### 3. Ask questions
 
