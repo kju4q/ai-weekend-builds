@@ -1,0 +1,20 @@
+# Direct dependencies of rag.py, pinned to a set verified to install together
+# on Python 3.12 (macOS arm64).
+
+# langchain.text_splitter, langchain.chains, langchain.memory
+langchain==0.3.30
+
+# langchain_community.document_loaders / .vectorstores / .embeddings
+langchain-community==0.3.31
+
+# langchain_anthropic.ChatAnthropic
+langchain-anthropic==0.3.22
+
+# backs langchain_community.vectorstores.Chroma
+chromadb==1.5.9
+
+# backs langchain_community.document_loaders.PyPDFLoader
+pypdf==6.14.2
+
+# backs langchain_community.embeddings.HuggingFaceEmbeddings (all-MiniLM-L6-v2)
+sentence-transformers==5.6.1
