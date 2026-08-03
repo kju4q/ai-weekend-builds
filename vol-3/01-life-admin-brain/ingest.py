@@ -62,7 +62,10 @@ def chunk(text: str) -> list[str]:
 def load_index() -> dict:
     if INDEX_PATH.exists():
         try:
-            return json.loads(INDEX_PATH.read_text())
+            data = json.loads(INDEX_PATH.read_text())
+            # Vectors from a different backend are not comparable, so rebuild.
+            if data.get("backend") == backend_name():
+                return data
         except (json.JSONDecodeError, OSError):
             pass
     return {"backend": backend_name(), "files": {}, "records": []}
