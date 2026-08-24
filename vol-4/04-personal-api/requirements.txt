@@ -1,7 +1,11 @@
-# Personal API: dependencies
+# Personal API
 #
-# STUB. Pinned during the build, with exact versions and the Python version
-# they were verified against. Nothing here is installed yet.
+# No third-party dependencies. This project uses only the Python standard
+# library: http.server, json, argparse, urllib, datetime, pathlib, threading,
+# uuid, shutil.
 #
-# Expected: none. This project aims to run on the Python standard library.
-# If the build adds a dependency, it gets pinned here with a reason.
+# Running `python3 -m pip install -r requirements.txt` against this file
+# downloads nothing and installs nothing. It is here so the documented setup
+# sequence is the same as every other project in the volume.
+#
+# Verified on Python 3.12.13 (macOS 26.5.1, Apple M2 Pro) on 2026-08-24.

@@ -23,3 +23,9 @@ vol-4/02-pattern-mirror/my-photos/
 vol-4/03-lookout/archive/
 vol-4/03-lookout/sources.yml
 vol-4/03-lookout/fixtures/current.html
+
+# vol-4/04-personal-api: generated runtime data directories, never the tracked sample-data
+vol-4/04-personal-api/.demo-data/
+vol-4/04-personal-api/.personal-api-data/
+vol-4/04-personal-api/.missing-data/
+vol-4/04-personal-api/.bad-data/

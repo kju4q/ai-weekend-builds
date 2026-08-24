@@ -1,0 +1,29 @@
+{
+  "tasks": [
+    {
+      "id": "task-1",
+      "text": "Review the Personal API response shape",
+      "done": false
+    },
+    {
+      "id": "task-2",
+      "text": "Write the sample calendar fixture",
+      "done": false
+    },
+    {
+      "id": "task-3",
+      "text": "Decide what /today should leave out",
+      "done": false
+    },
+    {
+      "id": "task-4",
+      "text": "Archive the completed build notes",
+      "done": true
+    },
+    {
+      "id": "task-5",
+      "text": "Pick a port that nothing else uses",
+      "done": true
+    }
+  ]
+}

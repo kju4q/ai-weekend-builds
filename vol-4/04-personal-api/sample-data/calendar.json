@@ -1,0 +1,33 @@
+{
+  "events": [
+    {
+      "id": "event-1",
+      "title": "Project planning",
+      "start": "2026-08-24T09:00:00",
+      "end": "2026-08-24T09:45:00"
+    },
+    {
+      "id": "event-2",
+      "title": "Library run",
+      "start": "2026-08-24T13:15:00",
+      "end": "2026-08-24T14:00:00"
+    },
+    {
+      "id": "event-3",
+      "title": "Afternoon walk",
+      "start": "2026-08-24T17:30:00"
+    },
+    {
+      "id": "event-4",
+      "title": "Dentist",
+      "start": "2026-08-25T11:00:00",
+      "end": "2026-08-25T11:30:00"
+    },
+    {
+      "id": "event-5",
+      "title": "Quarterly review",
+      "start": "2026-09-01T10:00:00",
+      "end": "2026-09-01T11:00:00"
+    }
+  ]
+}
