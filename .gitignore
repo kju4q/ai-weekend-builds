@@ -29,3 +29,11 @@ vol-4/04-personal-api/.demo-data/
 vol-4/04-personal-api/.personal-api-data/
 vol-4/04-personal-api/.missing-data/
 vol-4/04-personal-api/.bad-data/
+
+# vol-4/05-freedom-calculator: generated reports and personal assumption files
+vol-4/05-freedom-calculator/output/
+vol-4/05-freedom-calculator/sample-output/
+vol-4/05-freedom-calculator/changed-output/
+vol-4/05-freedom-calculator/my-output/
+vol-4/05-freedom-calculator/my-config.json
+vol-4/05-freedom-calculator/changed-config.json

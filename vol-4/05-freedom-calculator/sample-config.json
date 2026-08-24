@@ -1,0 +1,33 @@
+{
+  "name": "Fictional independent consultant",
+  "currency": "USD",
+  "months": 12,
+  "runs": 10000,
+  "seed": 42,
+  "starting_balance": 5000,
+  "monthly_income": {
+    "distribution": "normal",
+    "mean": 4100,
+    "sd": 1900,
+    "minimum": 0
+  },
+  "monthly_fixed_expenses": 2900,
+  "monthly_variable_expenses": {
+    "distribution": "normal",
+    "mean": 900,
+    "sd": 300,
+    "minimum": 0
+  },
+  "one_time_expenses": [
+    {
+      "month": 6,
+      "amount": 2500,
+      "label": "equipment replacement"
+    },
+    {
+      "month": 11,
+      "amount": 1200,
+      "label": "annual insurance"
+    }
+  ]
+}

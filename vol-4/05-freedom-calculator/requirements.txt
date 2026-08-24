@@ -1,7 +1,8 @@
-# Freedom Calculator: dependencies
+# No third-party dependencies.
+# This project uses only the Python standard library.
 #
-# STUB. Pinned during the build, with exact versions and the Python version
-# they were verified against. Nothing here is installed yet.
+# simulate.py imports: argparse, datetime, html, json, math, pathlib, random,
+# statistics, sys. The report is generated HTML, CSS, and inline SVG, so there is
+# no plotting library to install.
 #
-# Expected: none. The simulation aims to run on the Python standard library.
-# If the build adds a dependency, it gets pinned here with a reason.
+# Verified on Python 3.14.3 and 3.12.13 (macOS 26.5.1, Apple M2 Pro) on 2026-08-24.
