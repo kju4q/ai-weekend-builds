@@ -1,9 +1,14 @@
-# Past-You Searcher: dependencies
+# Past-You Searcher
 #
-# STUB. Pinned during the build, with exact versions and the Python version
-# they were verified against. Nothing here is installed yet.
+# Verified together on Python 3.12.13 (macOS, arm64) on 2026-08-24.
+# Both lines are optional in different ways, see the README:
 #
-# Expected:
-#   an embedding model runner (local)
-#   a vector store (local)
-#   openai        # only for the answer-phrasing layer
+#   sentence-transformers  real local embeddings. Without it the project falls
+#                          back to a pure-Python hashing embedding and still
+#                          runs, just with weaker matching. Installing it pulls
+#                          in torch, which is a multi-GB download.
+#   openai                 only used by the optional answer layer. Retrieval
+#                          never touches it.
+
+sentence-transformers==6.0.0
+openai==3.3.1

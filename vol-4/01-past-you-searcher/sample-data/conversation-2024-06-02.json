@@ -1,0 +1,26 @@
+{
+  "title": "Deciding what to cut",
+  "date": "2024-06-02",
+  "messages": [
+    {
+      "role": "user",
+      "text": "I have a feature list of eleven things for this project and I know that is too many. How do I decide what to cut?"
+    },
+    {
+      "role": "assistant",
+      "text": "What is the smallest version that a real person could use end to end, even if it is ugly?"
+    },
+    {
+      "role": "user",
+      "text": "Honestly, three of the eleven. Import my writing, search it, show me where the answer came from. The other eight are things I want to exist, not things anyone needs on day one."
+    },
+    {
+      "role": "assistant",
+      "text": "Then the other eight belong in a later list. What is stopping you from starting with the three?"
+    },
+    {
+      "role": "user",
+      "text": "The same thing as always. It will not be good enough to show anyone, and I would rather not find out. Which is exactly the pattern I wrote about years ago and apparently have not outgrown. Fine. Three features, ship it before it is ready, and the receipts matter more than the polish. If it cannot show me the passage it used I do not want it."
+    }
+  ]
+}

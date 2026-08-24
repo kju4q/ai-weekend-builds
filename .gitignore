@@ -8,3 +8,8 @@ node_modules/
 report.md
 docs/
 .claude/worktrees/
+
+# vol-4/01-past-you-searcher: generated index and your own writing
+vol-4/01-past-you-searcher/index.json
+vol-4/01-past-you-searcher/index.json.tmp
+vol-4/01-past-you-searcher/my-writing/

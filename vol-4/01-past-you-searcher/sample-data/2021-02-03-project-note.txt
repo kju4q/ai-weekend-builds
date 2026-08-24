@@ -1,0 +1,17 @@
+date: 2021-02-03
+
+Project note, week 2.
+
+Scope keeps growing. Every time I sit down I add a feature to the plan instead
+of removing one. The plan is now four months long and I have written no code.
+
+Rule I am adopting, starting today: the smallest version that a real person can
+use, or nothing. If a feature does not survive that test, it goes in a list
+called "later" that I am allowed to never read.
+
+Second thing I keep relearning: ship it before it is ready, because "ready" is
+a feeling and it arrives about three weeks after the thing was already good
+enough. The version I am embarrassed by is the version that teaches me
+something. The polished version that never shipped taught me nothing.
+
+Building products is mostly the discipline of deleting your own ideas.
