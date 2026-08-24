@@ -1,9 +1,18 @@
-# Pattern Mirror: dependencies
+# Pattern Mirror
 #
-# STUB. Pinned during the build, with exact versions and the Python version
-# they were verified against. Nothing here is installed yet.
+# Verified together on Python 3.12.13 (macOS 26.5.1, Apple M2 Pro) on 2026-08-24.
 #
-# Expected:
-#   an image metadata reader
-#   a vision model runner (local), or:
-#   openai        # only if you choose the hosted vision path
+#   Pillow                 reads images, EXIF, and orientation, and writes thumbnails.
+#                          Needed by both analysis modes.
+#   sentence-transformers   runs the local CLIP model for --vision local. Pulls in
+#                          torch and transformers, which is most of the install size.
+#                          Not needed for --vision metadata.
+#   openai                 only for the optional --summary openai phrasing layer,
+#                          which receives aggregate numbers and never an image.
+#
+# The perceptual hash used for near-duplicate detection is a 20-line dHash in
+# photolib.py, so there is no image-hashing dependency to install.
+
+Pillow==12.3.0
+sentence-transformers==6.0.0
+openai==3.3.1

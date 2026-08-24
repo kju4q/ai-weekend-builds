@@ -13,3 +13,8 @@ docs/
 vol-4/01-past-you-searcher/index.json
 vol-4/01-past-you-searcher/index.json.tmp
 vol-4/01-past-you-searcher/my-writing/
+
+# vol-4/02-pattern-mirror: generated reports, thumbnails, caches, personal photos
+vol-4/02-pattern-mirror/output/
+vol-4/02-pattern-mirror/sample-output*/
+vol-4/02-pattern-mirror/my-photos/

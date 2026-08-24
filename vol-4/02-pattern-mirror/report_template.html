@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pattern Mirror</title>
+<style>
+  :root {
+    --bg: #faf9f7; --card: #ffffff; --fg: #1f2430; --muted: #6b7280;
+    --line: #e8e5e0; --accent: #7c9cbf; --accent2: #b08cc4; --zero: #ded9d2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #16181d; --card: #1e2128; --fg: #e8e6e3; --muted: #9aa1ad;
+            --line: #2c3038; --zero: #363b44; }
+  }
+  * { box-sizing: border-box; }
+  body { font: 16px/1.6 -apple-system, system-ui, "Segoe UI", sans-serif;
+         max-width: 900px; margin: 0 auto; padding: 48px 20px 80px;
+         color: var(--fg); background: var(--bg); }
+  h1 { font-size: 2rem; font-weight: 600; margin: 0 0 4px; letter-spacing: -.5px; }
+  h2 { font-size: 1.1rem; font-weight: 600; margin: 48px 0 16px;
+       padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+  h3 { font-size: 1rem; font-weight: 600; margin: 0 0 10px; }
+  .muted { color: var(--muted); font-weight: 400; }
+  .small { font-size: .85rem; }
+  .lede { color: var(--muted); margin: 0 0 8px; }
+
+  .stats { display: flex; flex-wrap: wrap; gap: 10px; margin: 28px 0 8px; }
+  .stat { flex: 1 1 130px; background: var(--card); border: 1px solid var(--line);
+          border-radius: 10px; padding: 14px 16px; }
+  .stat b { display: block; font-size: 1.5rem; font-weight: 600; letter-spacing: -.5px; }
+  .stat span { color: var(--muted); font-size: .8rem; }
+
+  .mrow { display: flex; align-items: center; gap: 12px; margin: 5px 0; }
+  .mlabel { width: 96px; font-size: .88rem; color: var(--muted); flex: none; }
+  .track { flex: 1; background: var(--line); border-radius: 5px; height: 14px; overflow: hidden; }
+  .bar { display: block; height: 100%; border-radius: 5px;
+         background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+  .bar.zero { background: var(--zero); }
+  .bar.cat { background: linear-gradient(90deg, #8fae94, #7c9cbf); }
+  .mcount { width: 34px; text-align: right; font-variant-numeric: tabular-nums;
+            font-size: .88rem; flex: none; }
+  .tag { font-size: .72rem; color: var(--muted); border: 1px solid var(--line);
+         padding: 1px 7px; border-radius: 20px; }
+
+  .io { display: flex; gap: 10px; margin: 12px 0; }
+  .iopart { flex: 1; background: var(--card); border: 1px solid var(--line);
+            border-radius: 10px; padding: 14px; text-align: center; }
+  .iopart b { display: block; font-size: 1.6rem; font-weight: 600; }
+  .iopart span { display: block; color: var(--muted); font-size: .85rem; }
+
+  .month { margin: 28px 0; padding-top: 20px; border-top: 1px solid var(--line); }
+  .month.quiet { opacity: .72; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+  figure { margin: 0; background: var(--card); border: 1px solid var(--line);
+           border-radius: 10px; overflow: hidden; }
+  figure img { display: block; width: 100%; height: 130px; object-fit: cover; background: var(--line); }
+  .noimg { height: 130px; display: grid; place-items: center; color: var(--muted); font-size: .8rem; }
+  figcaption { padding: 8px 10px; font-size: .78rem; display: flex; flex-direction: column; gap: 2px; }
+  .src, .conf { color: var(--muted); font-size: .72rem; }
+  .cat { font-weight: 600; margin-top: 3px; }
+
+  .summary { background: var(--card); border: 1px solid var(--line);
+             border-radius: 12px; padding: 20px 24px; margin: 16px 0; }
+  .summary ul { margin: 0; padding-left: 20px; }
+  .summary li { margin: 6px 0; }
+  .note { margin-top: 56px; padding: 18px 20px; border-radius: 12px;
+          border: 1px solid var(--line); background: var(--card);
+          color: var(--muted); font-size: .87rem; }
+  code { font-size: .85em; background: var(--line); padding: 1px 5px; border-radius: 4px; }
+  footer { margin-top: 32px; color: var(--muted); font-size: .8rem; }
+</style>
+</head>
+<body>
+
+<h1>Pattern Mirror</h1>
+<p class="lede">{{RANGE}} · generated {{GENERATED}}</p>
+<p class="lede small">Mode: {{MODE}} · OpenAI phrasing: {{OPENAI_STATE}}</p>
+
+<div class="stats">{{STATS}}</div>
+<p class="muted small">Photo dates: {{DATE_SOURCES}}.</p>
+
+<h2>What the numbers say</h2>
+<div class="summary">{{SUMMARY_BODY}}</div>
+<p class="muted small">{{SUMMARY_ORIGIN}}</p>
+
+<h2>Photos per month</h2>
+{{TIMELINE}}
+
+<h2>Broad visual categories</h2>
+{{CATEGORIES}}
+
+{{INDOOR_OUTDOOR}}
+
+<h2>Month by month</h2>
+{{MONTHS}}
+
+<div class="note">{{NOTE}}</div>
+
+<footer>Pattern Mirror · generated locally · open this file directly, no server needed</footer>
+
+</body>
+</html>
