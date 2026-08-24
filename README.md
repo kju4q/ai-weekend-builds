@@ -2,9 +2,25 @@
 
 AI projects you can build in a weekend. Each one has a full README, starter code, and the exact prompts I'd use.
 
+The model varies by volume. Vol 4 is built with Codex and uses an OpenAI API key where a project needs one. Earlier volumes use an Anthropic key. Each volume's guide states what it needs.
+
 Sorted by difficulty. Pick one. Build it. Ship it.
 
-## Latest: Vol 3 — Life-First Local Builds (July 2026)
+## Latest: Vol 4: Builds On Your Own Data (August 2026)
+
+5 projects that make your own data work for you: your past, your patterns, your world, your interface, your future.
+
+| # | Project | Difficulty | Time | What you get |
+|---|---------|-----------|------|-------------|
+| 01 | [Past-You Searcher](./vol-4/01-past-you-searcher) | Medium | 4-6h | Everything you've ever written becomes one memory you can ask questions |
+| 02 | [Pattern Mirror](./vol-4/02-pattern-mirror) | Easy-Medium | 3-5h | Years of your camera roll, rendered as the shape of your life |
+| 03 | [Lookout](./vol-4/03-lookout) | Medium | 4-6h | Stops you checking pages, watches your sources and speaks only when something changes |
+| 04 | [Personal API](./vol-4/04-personal-api) | Medium-Advanced | 5-8h | One local server where your life has addresses |
+| 05 | [Freedom Calculator](./vol-4/05-freedom-calculator) | Advanced | Full day | Ten thousand simulated versions of your next year, from your own assumptions |
+
+[See the full vol 4 guide →](./vol-4)
+
+## Vol 3 — Life-First Local Builds (July 2026)
 
 5 tools you build yourself and own. Life stuff, not workflow hacks — your documents, your money, your voice, your day, your decisions — and local-first wherever possible, so your data never leaves your machine.
 
@@ -52,7 +68,7 @@ Each folder has everything you need:
 
 ## Who this is for
 
-Developers comfortable with Python or Node.js, an Anthropic API key, and running commands in the terminal. Each project has starter code and a README that walks you through the setup.
+Developers comfortable with Python or Node.js and running commands in the terminal. Where a project needs a hosted model, its volume guide says which key to get: an OpenAI key for vol 4, an Anthropic key for vols 1 to 3. Each project has starter code and a README that walks you through the setup.
 
 If you're newer to coding, start with the easy-mode projects, they're the most approachable.
 
