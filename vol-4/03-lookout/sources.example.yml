@@ -1,0 +1,33 @@
+# Lookout sources.
+#
+# Copy this to sources.yml and put your own pages in it:
+#   cp sources.example.yml sources.yml
+#
+# Each source needs a name and either a url (fetched over the network) or a
+# path (read from disk, used here for the offline fixtures). The name keys the
+# archive folder, so keep it stable: renaming a source starts its history over.
+
+sources:
+  # The shipped fixture. `path` is relative to this config file, so the example
+  # works offline with no network and no live page that has to change on cue.
+  # Step 1 in the README copies v1, v2, and v3 over this file in turn.
+  - name: Northwind plans
+    path: fixtures/current.html
+    note: Synthetic page shipped with the project, used for the walkthrough.
+
+  # A real page. Uncomment to watch something live.
+  # - name: Example dot com
+  #   url: https://example.com/
+  #   note: Stable page, useful for proving that live fetching works.
+
+  # Per-source ignore patterns are regexes added to the built-in list, for churn
+  # that is specific to one page. This one would keep a rotating quote of the day
+  # from waking you up.
+  # - name: Some status page
+  #   url: https://status.example.com/
+  #   ignore:
+  #     - 'Quote of the day:.*'
+  #     - 'Queue length: \d+'
+  #   # Set this to false to drop the built-in timestamp and counter patterns and
+  #   # compare the extracted text exactly as it came.
+  #   use_default_ignores: true

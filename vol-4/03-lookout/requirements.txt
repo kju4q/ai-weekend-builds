@@ -1,9 +1,17 @@
-# Lookout: dependencies
+# Lookout
 #
-# STUB. Pinned during the build, with exact versions and the Python version
-# they were verified against. Nothing here is installed yet.
+# Verified together on Python 3.12.13 (macOS 26.5.1, Apple M2 Pro) on 2026-08-24.
 #
-# Expected:
-#   an HTTP client
-#   an HTML text extractor
-#   openai        # only for summarizing what changed
+#   requests    fetches the pages. Not needed for sources that use a local
+#               `path:`, which is how the shipped fixtures run offline.
+#   PyYAML      reads sources.yml. The config is YAML because you edit it by
+#               hand and it takes comments.
+#   openai      only for the optional --judge layer, which sends one diff and
+#               never the archive.
+#
+# Text extraction is html.parser from the standard library and diffing is
+# difflib, so there is no scraping or diffing dependency to install.
+
+requests==2.34.2
+PyYAML==6.0.3
+openai==3.3.1
