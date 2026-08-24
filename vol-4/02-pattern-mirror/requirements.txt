@@ -1,0 +1,9 @@
+# Pattern Mirror: dependencies
+#
+# STUB. Pinned during the build, with exact versions and the Python version
+# they were verified against. Nothing here is installed yet.
+#
+# Expected:
+#   an image metadata reader
+#   a vision model runner (local), or:
+#   openai        # only if you choose the hosted vision path

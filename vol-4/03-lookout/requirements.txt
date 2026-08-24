@@ -1,0 +1,9 @@
+# Lookout: dependencies
+#
+# STUB. Pinned during the build, with exact versions and the Python version
+# they were verified against. Nothing here is installed yet.
+#
+# Expected:
+#   an HTTP client
+#   an HTML text extractor
+#   openai        # only for summarizing what changed

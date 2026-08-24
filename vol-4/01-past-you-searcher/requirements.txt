@@ -1,0 +1,9 @@
+# Past-You Searcher: dependencies
+#
+# STUB. Pinned during the build, with exact versions and the Python version
+# they were verified against. Nothing here is installed yet.
+#
+# Expected:
+#   an embedding model runner (local)
+#   a vector store (local)
+#   openai        # only for the answer-phrasing layer

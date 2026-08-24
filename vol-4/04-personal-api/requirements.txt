@@ -1,0 +1,7 @@
+# Personal API: dependencies
+#
+# STUB. Pinned during the build, with exact versions and the Python version
+# they were verified against. Nothing here is installed yet.
+#
+# Expected: none. This project aims to run on the Python standard library.
+# If the build adds a dependency, it gets pinned here with a reason.
