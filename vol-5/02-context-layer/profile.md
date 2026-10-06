@@ -3,16 +3,22 @@
 <!-- Who you are. Short, stable facts. Change rarely. -->
 
 ## Name
-_(not filled yet)_
+Mira
 
 ## Where
-_(not filled yet)_
+Lisbon, Portugal (WET/WEST)
 
 ## What I do
-_(not filled yet)_
+Product designer at a 40-person logistics startup, and I post about design on the side.
 
 ## Stable facts
-_(not filled yet)_
+- Designer for 9 years, the last 4 in logistics software
+- Two kids, 6 and 9
+- Deaf in the left ear, so I prefer written over calls
+- Runs on a 2021 MacBook Air, no second monitor
 
 ## Units and formats
-_(not filled yet)_
+- Metric only. Never convert to imperial.
+- Dates as 2026-03-14. Never 03/14/26.
+- Euros, no currency conversion.
+- English, British spelling.
