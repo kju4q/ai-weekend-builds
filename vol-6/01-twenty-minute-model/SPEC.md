@@ -21,6 +21,7 @@ can watch the output go from noise to words while the loss falls.
 
 - `output/step-NNNNN.pt`: a checkpoint at fixed steps, including step 0 before
   any training, plus the step where the clock ran out
+- `output/best.pt`: a copy of the checkpoint with the lowest validation loss
 - `output/samples.jsonl`: per checkpoint, the step, elapsed time, train and
   validation loss, and a sample from the same prompt with the same seed
 - `output/loss.csv`: step, elapsed seconds, train loss, validation loss,
@@ -63,8 +64,9 @@ can watch the output go from noise to words while the loss falls.
 - Build: AdamW, warmup and cosine decay on elapsed time, gradient clipping,
   checkpoints, `samples.jsonl`, `loss.csv`, `--selftest`
 - Acceptance check: `python train.py --selftest` prints `selftest ok` in under
-  30 seconds, and it checks that loss fell and that a reloaded checkpoint
-  reproduces its own sample
+  30 seconds, and it checks that loss fell, that a reloaded checkpoint
+  reproduces its own sample, and that `best.pt` is the checkpoint with the
+  lowest validation loss
 
 ### M4: The real run, measured
 - Build: choose the default model size for a twenty minute run on my machine

@@ -27,7 +27,7 @@ memory, macOS 26.6, PyTorch 2.15.0 on the MPS backend, with the default settings
 | 250 | 2.0 | 1.843 | 1.842 | `, the ast to knothe to saided be the / exects deto to me histere able for sirdy wer a whould the / whe parmani...` |
 | 500 | 3.9 | 1.303 | 1.339 | `, they were not, however / never, however, as determined him, and all for / sixter to the minute of her affaic...` |
 | 1000 | 7.6 | 1.014 | 1.129 | `, and as soon as he could / not be the entertained. She was therefore for so whole day, on what / procuring fo...` |
-| 1500 | 11.4 | 0.866 | 1.098 | `, and as soon as he could not be the / expectation." /  / "I have just attempted to me to be in Meryton," said...` |
+| **1500 (best)** | 11.4 | 0.866 | **1.098** | `, and as soon as he could not be the / expectation." /  / "I have just attempted to me to be in Meryton," said...` |
 | 2000 | 15.1 | 0.740 | 1.116 | `, they said no more, / with a most unreasonable solicity as they are married, and / readily be always long at...` |
 | 2683 | 20.0 | 0.632 | 1.159 | `, they saw that, however, / therefore, in a short want of very extravagance in spirits, or which / would hardl...` |
 
@@ -39,9 +39,13 @@ and `python watch.py` shows them side by side.
 Measured on that run: 2,683 steps in 20.0 minutes of training (the whole command
 took 20.1 minutes, startup and the last checkpoint included), 10,799,616
 parameters, final validation loss 1.159. The lowest validation loss was 1.098 at
-step 1500, and the section "What the run taught me" is about why it went back
-up. On another machine the step count will differ, because the budget is time,
-not steps.
+step 1500, marked best in the table, and the section "What the run taught me" is
+about why it went back up. On another machine the step count will differ,
+because the budget is time, not steps.
+
+**The best checkpoint comes around the middle of a 20 minute run, so stop early
+or keep `best.pt`.** The trainer saves the checkpoint with the lowest validation
+loss as `output/best.pt`, and `watch.py` uses it by default.
 
 ## What you'll learn
 
@@ -56,10 +60,12 @@ not steps.
 
 ## Prerequisites
 
-- Python 3.10+ (tested on 3.12)
-- `pip install -r requirements.txt` (PyTorch and numpy)
-- A recent Mac with Apple silicon, or a machine with an NVIDIA GPU. A CPU works
-  for the selftest, but not for the real run: on the same M2 Pro, forced onto the
+- Python 3.10+ and `pip install -r requirements.txt` (PyTorch and numpy)
+- Tested on a Mac with MPS (Apple M2 Pro) and on CPU, with Python 3.12, torch
+  2.15.0 and numpy 2.5.5. Not tested: CUDA, Python 3.10 and 3.11, and older
+  torch versions. The code picks CUDA when it finds it, but I have not run it
+  there.
+- A CPU works for the selftest, but not for the real run: on the same M2 Pro, forced onto the
   CPU with `--device cpu --minutes 1`, it got 14 steps, against about 134 a
   minute on the GPU.
 - No API key. Not optional, not needed, not supported.
@@ -148,8 +154,9 @@ python watch.py
 ```
 
 Before you have trained anything this replays `sample-data/samples.jsonl`, the
-samples from the run in the table above, side by side. This is the target.
-`python watch.py --type` types each one out, which is the version to film.
+samples from the run in the table above, side by side, with the best checkpoint
+marked `BEST`. This is the target. `python watch.py --type` types each one out,
+which is the version to film.
 
 ### Step 3: See what a token is
 
@@ -227,10 +234,14 @@ open output/loss.html
 python watch.py
 python watch.py --rows
 python watch.py --prompt "Mr. Darcy"
+python watch.py --prompt "Mr. Darcy" --all
 ```
 
-The last one loads every checkpoint you saved and generates from a new prompt,
-so you can see whether the model learned the text or just the first line.
+`--prompt` generates from a new prompt with `best.pt`, so you can see whether
+the model learned the text or just the first line. Add `--all` to generate from
+every checkpoint you saved, with the best one marked. Before you have trained,
+`--prompt` falls back to the shipped `sample-data/final.pt`, the last checkpoint
+of my run, and says so.
 
 ## Verify it works
 
@@ -241,7 +252,10 @@ so you can see whether the model learned the text or just the first line.
 - [ ] `python train.py` prints the step 0 sample as noise and a loss close to
       ln(70) = 4.248
 - [ ] The run stops at the time budget and writes `output/loss.csv`,
-      `output/samples.jsonl`, `output/loss.html` and one `.pt` per checkpoint
+      `output/samples.jsonl`, `output/loss.html`, one `.pt` per checkpoint, and
+      `output/best.pt`
+- [ ] The last lines of the run name the best checkpoint, and `python watch.py`
+      marks the same step `BEST`
 - [ ] `python watch.py` now shows your run, and the last checkpoint is made of
       real words
 - [ ] `output/loss.html` opens with wifi off
@@ -349,6 +363,9 @@ above.
 ## Common pitfalls
 
 - **Judging it at the first checkpoints.** Step 100 is word-shaped nonsense. Wait.
+- **Keeping the last checkpoint because it is the last.** On my run the last
+  checkpoint had a higher validation loss than the one at step 1500. Use
+  `best.pt`.
 - **Reading the train loss as the real number.** The train loss in the progress
   lines is one batch and noisy. The validation loss is measured on text the model
   never trains on, and it is the honest one.
@@ -364,9 +381,11 @@ above.
 
 ## Files
 
-- `train.py`: the model, the trainer, the loss chart writer, and `--selftest`
+- `train.py`: the model, the trainer, best checkpoint tracking, the loss chart
+  writer, and `--selftest`
 - `tokens.py`: characters vs a hand-written BPE, on the same sentence
-- `watch.py`: replays every checkpoint's sample, or generates fresh from them
+- `watch.py`: replays every checkpoint's sample with the best one marked, or
+  generates fresh from `best.pt`
 - `loss.html`: the loss chart from my run, and the template `train.py` fills in
 - [SPEC.md](SPEC.md): the spec this was built from, with acceptance checks
 - [prompts.md](prompts.md): the prompts for your coding assistant

@@ -8,6 +8,8 @@
 Every checkpoint step (including step 0, before any training) it saves the model,
 prints a sample from the same prompt with the same random seed, and appends the
 sample to output/samples.jsonl. Loss goes to output/loss.csv and output/loss.html.
+The checkpoint with the lowest validation loss is also copied to output/best.pt,
+because on a long enough run the last checkpoint is not the best one.
 
 No network calls, no downloads, no API key. The training text ships in
 sample-data/, and everything written goes to output/.
@@ -257,14 +259,22 @@ def train(args) -> dict:
     budget = args.minutes * 60
     step = 0
     last_train = float("nan")
+    best = {"val": float("inf"), "step": None}
 
     def checkpoint(step: int, w, lr: float) -> None:
         sync(device)
         elapsed = time.time() - t0
         losses = estimate_loss(model, data, args.batch, c.block_size, args.eval_iters, eval_gen)
         text_out = sample(model, data, args.prompt, args.sample_chars)
-        save_checkpoint(os.path.join(args.out, f"step-{step:05d}.pt"),
-                        model, data, step, losses)
+        step_path = os.path.join(args.out, f"step-{step:05d}.pt")
+        save_checkpoint(step_path, model, data, step, losses)
+        # best.pt is the checkpoint with the lowest validation loss so far. On a
+        # long enough run the last checkpoint is not the best one: validation loss
+        # turns around while training loss keeps falling.
+        is_best = losses["val"] < best["val"]
+        if is_best:
+            best.update(val=losses["val"], step=step)
+            shutil.copyfile(step_path, os.path.join(args.out, "best.pt"))
         rec = {"step": step, "elapsed_s": round(elapsed, 1),
                "train_loss": round(losses["train"], 4),
                "val_loss": round(losses["val"], 4), "sample": text_out}
@@ -274,7 +284,8 @@ def train(args) -> dict:
         # so the chart starts at step 0 and ends on the same numbers as the samples.
         w.writerow([step, rec["elapsed_s"], rec["train_loss"], rec["val_loss"], f"{lr:.2e}"])
         print(f"\n=== step {step:5d} | {elapsed/60:5.1f} min | train {losses['train']:.3f}"
-              f" | val {losses['val']:.3f} ===")
+              f" | val {losses['val']:.3f}" + (" | new best, saved best.pt" if is_best else "")
+              + " ===")
         print(text_out)
         print("=" * 60 + "\n", flush=True)
 
@@ -321,9 +332,12 @@ def train(args) -> dict:
     total = time.time() - t0
     write_loss_html(os.path.join(args.out, "loss.html"), loss_path)
     summary = {"device": device, "params": model.n_params(), "steps": step,
-               "minutes": round(total / 60, 2), "final_train": last_train}
+               "minutes": round(total / 60, 2), "final_train": last_train,
+               "best_step": best["step"], "best_val": best["val"]}
     print(f"done: {step} steps in {total/60:.1f} minutes on {device}, "
           f"{model.n_params():,} parameters")
+    print(f"best checkpoint: step {best['step']}, validation loss {best['val']:.3f}, "
+          f"saved as best.pt")
     print(f"wrote loss.csv, samples.jsonl, loss.html and the checkpoints to {args.out}")
     return summary
 
@@ -370,6 +384,11 @@ def selftest() -> None:
     data = CharData(text, "cpu")
     assert sample(model, data, DEFAULT_PROMPT, 40) == recs[-1]["sample"], \
         "reloaded checkpoint does not reproduce its own sample"
+    best_rec = min(recs, key=lambda r: r["val_loss"])
+    _, best_ck = load_checkpoint(os.path.join(tmp, "best.pt"), "cpu")
+    assert best_ck["step"] == best_rec["step"] == summary["best_step"], \
+        "best.pt is not the checkpoint with the lowest validation loss"
+    print(f"best.pt is step {best_ck['step']}, the lowest validation loss: yes")
     rows = list(csv.DictReader(open(os.path.join(tmp, "loss.csv"))))
     assert [r["step"] for r in rows] == ["0", "10", "20", "30", "40", "50", "60"] and os.path.exists(os.path.join(tmp, "loss.html"))
     print(f"\nuntrained val loss {recs[0]['val_loss']:.3f}, "

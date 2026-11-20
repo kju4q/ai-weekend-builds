@@ -3,8 +3,12 @@
     python watch.py                       the samples from your run (or the shipped one)
     python watch.py --rows                one checkpoint per row instead of columns
     python watch.py --type                type each sample out character by character
-    python watch.py --prompt "Mr. Darcy"  generate fresh from every saved checkpoint
+    python watch.py --prompt "Mr. Darcy"  generate fresh from best.pt
+    python watch.py --prompt "Mr. Darcy" --all    from every saved checkpoint
     python watch.py --checkpoint sample-data/final.pt --prompt "Mr. Darcy"
+
+The best checkpoint, the one with the lowest validation loss, is marked BEST in
+every view. On a twenty minute run it is not the last one.
 
 Before you train anything this reads sample-data/samples.jsonl, the samples from
 the run described in the README, so you can see the target first. After you
@@ -54,8 +58,15 @@ def generate_from_checkpoints(paths: list[str], prompt: str, n: int) -> list[dic
     return out
 
 
+def mark_best(recs: list[dict]) -> None:
+    if recs:
+        best = min(recs, key=lambda r: r["val_loss"])
+        for r in recs:
+            r["best"] = r is best
+
+
 def label(r: dict) -> str:
-    return f"step {r['step']}  loss {r['val_loss']:.2f}"
+    return f"step {r['step']}  loss {r['val_loss']:.3f}" + ("  BEST" if r.get("best") else "")
 
 
 def columns(recs: list[dict], width: int) -> None:
@@ -91,23 +102,38 @@ def main() -> None:
     ap.add_argument("--rows", action="store_true", help="one checkpoint per row")
     ap.add_argument("--type", action="store_true", help="type the samples out, implies --rows")
     ap.add_argument("--delay", type=float, default=0.012, help="seconds per typed character")
-    ap.add_argument("--prompt", help="generate fresh text from this prompt at every checkpoint")
+    ap.add_argument("--prompt", help="generate fresh text from this prompt, from best.pt")
+    ap.add_argument("--all", action="store_true",
+                    help="with --prompt, generate from every saved checkpoint instead")
     ap.add_argument("--checkpoint", nargs="*", help="specific .pt files for --prompt")
     ap.add_argument("--chars", type=int, default=240)
     args = ap.parse_args()
     width = min(shutil.get_terminal_size((120, 40)).columns, 160)
 
     if args.prompt:
-        paths = args.checkpoint or sorted(glob.glob(os.path.join(OUTPUT, "step-*.pt")))
+        if args.checkpoint:
+            paths = args.checkpoint
+        elif args.all:
+            paths = sorted(glob.glob(os.path.join(OUTPUT, "step-*.pt")))
+        else:
+            paths = [p for p in [os.path.join(OUTPUT, "best.pt")] if os.path.exists(p)]
         if not paths:
             paths = [os.path.join(SHIPPED, "final.pt")]
-            print("no checkpoints in output/ yet, using the shipped sample-data/final.pt\n")
+            print("no best.pt in output/ yet, so this uses the shipped sample-data/final.pt,\n"
+                  "the last checkpoint of the README run (not its best one). Train to get best.pt.\n")
         recs = generate_from_checkpoints(paths, args.prompt, args.chars)
-        print(f"prompt {args.prompt!r}, {len(recs)} checkpoint(s)\n")
+        if args.all:
+            mark_best(recs)
+        print(f"prompt {args.prompt!r}, " + ", ".join(
+            os.path.relpath(p, HERE) for p in paths) + "\n")
     else:
         path, recs = load_samples(args.samples)
+        mark_best(recs)
+        best = next(r for r in recs if r["best"])
         print(f"{os.path.relpath(path, HERE)}: {len(recs)} checkpoints, same prompt, "
-              f"same random seed\n")
+              f"same random seed")
+        print(f"best checkpoint: step {best['step']}, validation loss "
+              f"{best['val_loss']:.3f} (marked BEST)\n")
 
     if args.rows or args.type:
         rows(recs, width, args.type, args.delay)
