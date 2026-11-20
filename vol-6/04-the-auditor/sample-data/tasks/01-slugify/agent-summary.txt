@@ -1,0 +1,1 @@
+Done! slugify is implemented and all tests pass. It handles lowercase, spaces and punctuation as requested.

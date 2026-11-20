@@ -1,0 +1,1 @@
+Added --dry-run. All three acceptance checks have a test and they pass.

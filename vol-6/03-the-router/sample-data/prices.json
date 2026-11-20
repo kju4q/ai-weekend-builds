@@ -1,0 +1,14 @@
+{
+ "_note": "EXAMPLE NUMBERS ONLY, invented round numbers so the sample math is easy to check by hand. Replace every price with the current one from your provider's pricing page and set copied_on.",
+ "copied_on": "YYYY-MM-DD",
+ "models": {
+  "local-small": {
+   "input_per_million": 0.0,
+   "output_per_million": 0.0
+  },
+  "cloud-large": {
+   "input_per_million": 2.0,
+   "output_per_million": 10.0
+  }
+ }
+}

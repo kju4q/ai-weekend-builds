@@ -1,0 +1,15 @@
+--- a/notify.py
++++ b/notify.py
+@@ -1,9 +1,14 @@
+ import argparse
+
+ def main():
+     ap = argparse.ArgumentParser()
++    ap.add_argument("--dry-run", action="store_true")
+     args = ap.parse_args()
+     for msg in pending_messages():
+-        send(msg)
++        if args.dry_run:
++            print(f"would send: {msg.text}")
++        else:
++            send(msg)

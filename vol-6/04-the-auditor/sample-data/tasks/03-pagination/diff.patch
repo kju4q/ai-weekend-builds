@@ -1,0 +1,10 @@
+--- a/ingest.py
++++ b/ingest.py
+@@ -0,0 +1,10 @@
++def fetch_all(client):
++    items = []
++    page = client.get(cursor=None)
++    while page["next"] is not None:
++        items.extend(page["items"])
++        page = client.get(cursor=page["next"])
++    return items

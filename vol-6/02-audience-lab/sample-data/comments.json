@@ -1,0 +1,566 @@
+{
+ "_note": "Invented sample data. 60 comments: 8 ask about the laptop, 10 contain the keyword link as a whole word, in any case.",
+ "data": [
+  {
+   "id": "c001",
+   "post_id": "p1",
+   "username": "invented_user_01",
+   "text": "Link",
+   "timestamp": "2026-11-03T19:00:00Z",
+   "like_count": 16,
+   "replies": []
+  },
+  {
+   "id": "c002",
+   "post_id": "p1",
+   "username": "invented_user_02",
+   "text": "how long to build this?",
+   "timestamp": "2026-11-03T20:01:00Z",
+   "like_count": 3,
+   "replies": [
+    {
+     "id": "r002",
+     "username": "my_account",
+     "text": "About a weekend!",
+     "is_owner_reply": true
+    }
+   ]
+  },
+  {
+   "id": "c003",
+   "post_id": "p5",
+   "username": "invented_user_03",
+   "text": "is this claude or gpt",
+   "timestamp": "2026-11-15T21:02:00Z",
+   "like_count": 9,
+   "replies": []
+  },
+  {
+   "id": "c004",
+   "post_id": "p2",
+   "username": "invented_user_04",
+   "text": "love this series",
+   "timestamp": "2026-11-06T22:03:00Z",
+   "like_count": 12,
+   "replies": []
+  },
+  {
+   "id": "c005",
+   "post_id": "p4",
+   "username": "invented_user_05",
+   "text": "love the desk",
+   "timestamp": "2026-11-12T19:04:00Z",
+   "like_count": 7,
+   "replies": []
+  },
+  {
+   "id": "c006",
+   "post_id": "p2",
+   "username": "invented_user_06",
+   "text": "what laptop are you running this on",
+   "timestamp": "2026-11-06T20:05:00Z",
+   "like_count": 19,
+   "replies": [
+    {
+     "id": "r006",
+     "username": "invented_user_99",
+     "text": "same question",
+     "is_owner_reply": false
+    }
+   ]
+  },
+  {
+   "id": "c007",
+   "post_id": "p2",
+   "username": "invented_user_07",
+   "text": "obsessed \ud83d\udd25",
+   "timestamp": "2026-11-06T21:06:00Z",
+   "like_count": 26,
+   "replies": []
+  },
+  {
+   "id": "c008",
+   "post_id": "p5",
+   "username": "invented_user_08",
+   "text": "do I need to pay for anything",
+   "timestamp": "2026-11-15T22:07:00Z",
+   "like_count": 6,
+   "replies": []
+  },
+  {
+   "id": "c009",
+   "post_id": "p2",
+   "username": "invented_user_09",
+   "text": "\ud83d\udd25\ud83d\udd25\ud83d\udd25",
+   "timestamp": "2026-11-06T19:08:00Z",
+   "like_count": 0,
+   "replies": []
+  },
+  {
+   "id": "c010",
+   "post_id": "p3",
+   "username": "invented_user_10",
+   "text": "LINK",
+   "timestamp": "2026-11-09T20:09:00Z",
+   "like_count": 17,
+   "replies": []
+  },
+  {
+   "id": "c011",
+   "post_id": "p3",
+   "username": "invented_user_11",
+   "text": "LINK pls",
+   "timestamp": "2026-11-09T21:10:00Z",
+   "like_count": 11,
+   "replies": []
+  },
+  {
+   "id": "c012",
+   "post_id": "p5",
+   "username": "invented_user_12",
+   "text": "which AI is this",
+   "timestamp": "2026-11-15T22:11:00Z",
+   "like_count": 16,
+   "replies": []
+  },
+  {
+   "id": "c013",
+   "post_id": "p3",
+   "username": "invented_user_13",
+   "text": "LINK \ud83d\ude4f",
+   "timestamp": "2026-11-09T19:12:00Z",
+   "like_count": 9,
+   "replies": []
+  },
+  {
+   "id": "c014",
+   "post_id": "p5",
+   "username": "invented_user_14",
+   "text": "how much does the API cost",
+   "timestamp": "2026-11-15T20:13:00Z",
+   "like_count": 21,
+   "replies": []
+  },
+  {
+   "id": "c015",
+   "post_id": "p1",
+   "username": "invented_user_15",
+   "text": "which macbook is that \ud83d\ude0d",
+   "timestamp": "2026-11-03T21:14:00Z",
+   "like_count": 1,
+   "replies": []
+  },
+  {
+   "id": "c016",
+   "post_id": "p3",
+   "username": "invented_user_16",
+   "text": "I can't code, can I still build it",
+   "timestamp": "2026-11-09T22:15:00Z",
+   "like_count": 13,
+   "replies": [
+    {
+     "id": "r016",
+     "username": "my_account",
+     "text": "No coding experience needed for the first one, the README walks through it.",
+     "is_owner_reply": true
+    }
+   ]
+  },
+  {
+   "id": "c017",
+   "post_id": "p5",
+   "username": "invented_user_17",
+   "text": "the editing on this \ud83d\udc4f",
+   "timestamp": "2026-11-15T19:16:00Z",
+   "like_count": 23,
+   "replies": []
+  },
+  {
+   "id": "c018",
+   "post_id": "p4",
+   "username": "invented_user_18",
+   "text": "saving this",
+   "timestamp": "2026-11-12T20:17:00Z",
+   "like_count": 3,
+   "replies": []
+  },
+  {
+   "id": "c019",
+   "post_id": "p4",
+   "username": "invented_user_19",
+   "text": "wow",
+   "timestamp": "2026-11-12T21:18:00Z",
+   "like_count": 7,
+   "replies": []
+  },
+  {
+   "id": "c020",
+   "post_id": "p1",
+   "username": "invented_user_20",
+   "text": "bookmarked",
+   "timestamp": "2026-11-03T22:19:00Z",
+   "like_count": 28,
+   "replies": []
+  },
+  {
+   "id": "c021",
+   "post_id": "p5",
+   "username": "invented_user_21",
+   "text": "@friend look at this",
+   "timestamp": "2026-11-15T19:20:00Z",
+   "like_count": 21,
+   "replies": []
+  },
+  {
+   "id": "c022",
+   "post_id": "p4",
+   "username": "invented_user_22",
+   "text": "great video",
+   "timestamp": "2026-11-12T20:21:00Z",
+   "like_count": 14,
+   "replies": []
+  },
+  {
+   "id": "c023",
+   "post_id": "p1",
+   "username": "invented_user_23",
+   "text": "is that an M2 or M3 macbook",
+   "timestamp": "2026-11-03T21:22:00Z",
+   "like_count": 25,
+   "replies": []
+  },
+  {
+   "id": "c024",
+   "post_id": "p1",
+   "username": "invented_user_24",
+   "text": "LINK!!",
+   "timestamp": "2026-11-03T22:23:00Z",
+   "like_count": 16,
+   "replies": []
+  },
+  {
+   "id": "c025",
+   "post_id": "p3",
+   "username": "invented_user_25",
+   "text": "took me 3 days lol how long for you",
+   "timestamp": "2026-11-09T19:24:00Z",
+   "like_count": 15,
+   "replies": []
+  },
+  {
+   "id": "c026",
+   "post_id": "p3",
+   "username": "invented_user_26",
+   "text": "how long did this take you",
+   "timestamp": "2026-11-09T20:25:00Z",
+   "like_count": 22,
+   "replies": []
+  },
+  {
+   "id": "c027",
+   "post_id": "p1",
+   "username": "invented_user_27",
+   "text": "do you need coding experience for this",
+   "timestamp": "2026-11-03T21:26:00Z",
+   "like_count": 30,
+   "replies": []
+  },
+  {
+   "id": "c028",
+   "post_id": "p1",
+   "username": "invented_user_28",
+   "text": "how long does it take a beginner",
+   "timestamp": "2026-11-03T22:27:00Z",
+   "like_count": 6,
+   "replies": []
+  },
+  {
+   "id": "c029",
+   "post_id": "p1",
+   "username": "invented_user_29",
+   "text": "do I need to know how to code",
+   "timestamp": "2026-11-03T19:28:00Z",
+   "like_count": 14,
+   "replies": []
+  },
+  {
+   "id": "c030",
+   "post_id": "p3",
+   "username": "invented_user_30",
+   "text": "is this really a weekend thing",
+   "timestamp": "2026-11-09T20:29:00Z",
+   "like_count": 23,
+   "replies": []
+  },
+  {
+   "id": "c031",
+   "post_id": "p2",
+   "username": "invented_user_31",
+   "text": "following for more",
+   "timestamp": "2026-11-06T21:30:00Z",
+   "like_count": 0,
+   "replies": []
+  },
+  {
+   "id": "c032",
+   "post_id": "p1",
+   "username": "invented_user_32",
+   "text": "need the LINK",
+   "timestamp": "2026-11-03T22:31:00Z",
+   "like_count": 17,
+   "replies": []
+  },
+  {
+   "id": "c033",
+   "post_id": "p3",
+   "username": "invented_user_33",
+   "text": "is python required",
+   "timestamp": "2026-11-09T19:32:00Z",
+   "like_count": 8,
+   "replies": []
+  },
+  {
+   "id": "c034",
+   "post_id": "p5",
+   "username": "invented_user_34",
+   "text": "this is the content I needed",
+   "timestamp": "2026-11-15T20:33:00Z",
+   "like_count": 25,
+   "replies": []
+  },
+  {
+   "id": "c035",
+   "post_id": "p3",
+   "username": "invented_user_35",
+   "text": "you make it look easy",
+   "timestamp": "2026-11-09T21:34:00Z",
+   "like_count": 6,
+   "replies": []
+  },
+  {
+   "id": "c036",
+   "post_id": "p3",
+   "username": "invented_user_36",
+   "text": "what does it cost per month",
+   "timestamp": "2026-11-09T22:35:00Z",
+   "like_count": 16,
+   "replies": []
+  },
+  {
+   "id": "c037",
+   "post_id": "p5",
+   "username": "invented_user_37",
+   "text": "what model do you recommend",
+   "timestamp": "2026-11-15T19:36:00Z",
+   "like_count": 10,
+   "replies": []
+  },
+  {
+   "id": "c038",
+   "post_id": "p2",
+   "username": "invented_user_38",
+   "text": "what specs does your laptop have",
+   "timestamp": "2026-11-06T20:37:00Z",
+   "like_count": 13,
+   "replies": []
+  },
+  {
+   "id": "c039",
+   "post_id": "p5",
+   "username": "invented_user_39",
+   "text": "what model is running locally",
+   "timestamp": "2026-11-15T21:38:00Z",
+   "like_count": 19,
+   "replies": []
+  },
+  {
+   "id": "c040",
+   "post_id": "p3",
+   "username": "invented_user_40",
+   "text": "is there a free version",
+   "timestamp": "2026-11-09T22:39:00Z",
+   "like_count": 8,
+   "replies": []
+  },
+  {
+   "id": "c041",
+   "post_id": "p1",
+   "username": "invented_user_41",
+   "text": "can a non coder do this",
+   "timestamp": "2026-11-03T19:40:00Z",
+   "like_count": 21,
+   "replies": []
+  },
+  {
+   "id": "c042",
+   "post_id": "p3",
+   "username": "invented_user_42",
+   "text": "how long did training take",
+   "timestamp": "2026-11-09T20:41:00Z",
+   "like_count": 15,
+   "replies": []
+  },
+  {
+   "id": "c043",
+   "post_id": "p2",
+   "username": "invented_user_43",
+   "text": "so helpful",
+   "timestamp": "2026-11-06T21:42:00Z",
+   "like_count": 23,
+   "replies": []
+  },
+  {
+   "id": "c044",
+   "post_id": "p3",
+   "username": "invented_user_44",
+   "text": "link",
+   "timestamp": "2026-11-09T22:43:00Z",
+   "like_count": 15,
+   "replies": []
+  },
+  {
+   "id": "c045",
+   "post_id": "p2",
+   "username": "invented_user_45",
+   "text": "which computer do you use",
+   "timestamp": "2026-11-06T19:44:00Z",
+   "like_count": 20,
+   "replies": []
+  },
+  {
+   "id": "c046",
+   "post_id": "p3",
+   "username": "invented_user_46",
+   "text": "LINK",
+   "timestamp": "2026-11-09T20:45:00Z",
+   "like_count": 10,
+   "replies": []
+  },
+  {
+   "id": "c047",
+   "post_id": "p3",
+   "username": "invented_user_47",
+   "text": "LINK thank you",
+   "timestamp": "2026-11-09T21:46:00Z",
+   "like_count": 21,
+   "replies": []
+  },
+  {
+   "id": "c048",
+   "post_id": "p3",
+   "username": "invented_user_48",
+   "text": "what language is this in",
+   "timestamp": "2026-11-09T22:47:00Z",
+   "like_count": 29,
+   "replies": []
+  },
+  {
+   "id": "c049",
+   "post_id": "p5",
+   "username": "invented_user_49",
+   "text": "which model did you use",
+   "timestamp": "2026-11-15T19:48:00Z",
+   "like_count": 22,
+   "replies": []
+  },
+  {
+   "id": "c050",
+   "post_id": "p5",
+   "username": "invented_user_50",
+   "text": "this is so cool",
+   "timestamp": "2026-11-15T20:49:00Z",
+   "like_count": 8,
+   "replies": []
+  },
+  {
+   "id": "c051",
+   "post_id": "p3",
+   "username": "invented_user_51",
+   "text": "how many hours was this",
+   "timestamp": "2026-11-09T21:50:00Z",
+   "like_count": 20,
+   "replies": []
+  },
+  {
+   "id": "c052",
+   "post_id": "p1",
+   "username": "invented_user_52",
+   "text": "what laptop is that?",
+   "timestamp": "2026-11-03T22:51:00Z",
+   "like_count": 15,
+   "replies": []
+  },
+  {
+   "id": "c053",
+   "post_id": "p2",
+   "username": "invented_user_53",
+   "text": "mac or pc??",
+   "timestamp": "2026-11-06T19:52:00Z",
+   "like_count": 29,
+   "replies": []
+  },
+  {
+   "id": "c054",
+   "post_id": "p3",
+   "username": "invented_user_54",
+   "text": "LINK please!",
+   "timestamp": "2026-11-09T20:53:00Z",
+   "like_count": 17,
+   "replies": []
+  },
+  {
+   "id": "c055",
+   "post_id": "p1",
+   "username": "invented_user_55",
+   "text": "amazing work",
+   "timestamp": "2026-11-03T21:54:00Z",
+   "like_count": 19,
+   "replies": []
+  },
+  {
+   "id": "c056",
+   "post_id": "p3",
+   "username": "invented_user_56",
+   "text": "is this free?",
+   "timestamp": "2026-11-09T22:55:00Z",
+   "like_count": 30,
+   "replies": []
+  },
+  {
+   "id": "c057",
+   "post_id": "p1",
+   "username": "invented_user_57",
+   "text": "does this work on a windows laptop",
+   "timestamp": "2026-11-03T19:56:00Z",
+   "like_count": 5,
+   "replies": []
+  },
+  {
+   "id": "c058",
+   "post_id": "p1",
+   "username": "invented_user_58",
+   "text": "need this",
+   "timestamp": "2026-11-03T20:57:00Z",
+   "like_count": 19,
+   "replies": []
+  },
+  {
+   "id": "c059",
+   "post_id": "p5",
+   "username": "invented_user_59",
+   "text": "is the model free to use",
+   "timestamp": "2026-11-15T21:58:00Z",
+   "like_count": 21,
+   "replies": []
+  },
+  {
+   "id": "c060",
+   "post_id": "p3",
+   "username": "invented_user_60",
+   "text": "finally someone explains it",
+   "timestamp": "2026-11-09T22:59:00Z",
+   "like_count": 11,
+   "replies": []
+  }
+ ]
+}

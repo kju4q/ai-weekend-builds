@@ -1,0 +1,4 @@
+$ pytest -q tests/test_client.py
+..
+2 passed in 7.04s
+(tests: test_success, test_retries_429)

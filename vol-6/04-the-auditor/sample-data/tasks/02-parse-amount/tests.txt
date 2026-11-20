@@ -1,0 +1,4 @@
+$ pytest -q tests/test_money.py
+...
+3 passed in 0.02s
+(tests: test_thousands, test_negative_sign, test_empty_raises)

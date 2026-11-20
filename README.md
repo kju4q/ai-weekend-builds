@@ -2,11 +2,39 @@
 
 AI projects you can build in a weekend. Each one has a full README, starter code, and the exact prompts I'd use.
 
-The model varies by volume. Vol 4 is built with Codex and uses an OpenAI API key where a project needs one. Earlier volumes use an Anthropic key. Each volume's guide states what it needs.
+The model varies by volume. Vol 4 is built with Codex and uses an OpenAI API key where a project needs one. Earlier volumes use an Anthropic key. Vol 6's built project needs no key at all. Each volume's guide states what it needs.
 
 Sorted by difficulty. Pick one. Build it. Ship it.
 
-## Latest: Vol 4: Builds On Your Own Data (August 2026)
+## Latest: Vol 6: 5 Builds That Show You How the Machine Works (November 2026)
+
+5 projects about what is underneath: a model you train yourself, your audience data, the bill for every model call, a second reader for your agent's work, and a graph of what you know. Project 01 is built and measured. The other four are plans with a spec, prompts and sample data, plus a [build guide](./vol-6/BUILD-GUIDE.md) for building them with an AI assistant.
+
+| # | Project | Status | Difficulty | Time | What you get |
+|---|---------|--------|-----------|------|-------------|
+| 01 | [The Twenty-Minute Model](./vol-6/01-twenty-minute-model) | Built | Medium | 2-3h | A tiny GPT trained from scratch on your laptop, going from noise to words while you watch |
+| 02 | [The Audience Lab](./vol-6/02-audience-lab) | Plan and prompts | Medium-Advanced | 5-8h | Every post, comment and DM in your own database, and the questions people keep asking |
+| 03 | [The Router](./vol-6/03-the-router) | Plan and prompts | Medium | 4-6h | One door for every model request, local or cloud per task, with the bill logged |
+| 04 | [The Auditor](./vol-6/04-the-auditor) | Plan and prompts | Medium | 4-6h | A second model checks every "done" from your agent, with a score over time |
+| 05 | [The Graph of Everything You Know](./vol-6/05-the-graph) | Plan and prompts | Advanced | Full day | Your notes, reading and projects as one connected graph you can ask questions |
+
+[See the full vol 6 guide →](./vol-6)
+
+## Vol 5: 5 Builds You'll Actually Use (October 2026)
+
+5 projects that earn their place on your machine: a board that files everything you save, the context file every assistant should have asked you for, a plate of food turned into something to do, a brand animation you can render, and an agent that teaches itself a game while you watch.
+
+| # | Project | Difficulty | Time | What you get |
+|---|---------|-----------|------|-------------|
+| 01 | [Content Brain](./vol-5/01-content-brain) | Medium | 4-6h | A folder of screenshots and notes becomes a board, filed under your own projects |
+| 02 | [Context Layer](./vol-5/02-context-layer) | Easy-Medium | 3-5h | The onboarding every AI should have gotten about you, in files you own |
+| 03 | [Nutrition Lens](./vol-5/03-nutrition-lens) | Medium | 4-6h | A plate of food becomes pairings, timing, and what blocks what |
+| 04 | [Motion Studio](./vol-5/04-motion-studio) | Medium-Advanced | 5-8h | Three lines of brief becomes a branded animation, critiqued and rendered |
+| 05 | [The Arena](./vol-5/05-the-arena) | Advanced | Full day | A tiny game, and an agent that goes from random to unbeatable while you watch |
+
+[See the full vol 5 guide →](./vol-5)
+
+## Vol 4: Builds On Your Own Data (August 2026)
 
 5 projects that make your own data work for you: your past, your patterns, your world, your interface, your future.
 

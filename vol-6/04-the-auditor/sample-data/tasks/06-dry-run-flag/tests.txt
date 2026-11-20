@@ -1,0 +1,4 @@
+$ pytest -q tests/test_notify.py
+...
+3 passed in 0.04s
+(tests: test_dry_run_does_not_send, test_dry_run_prints, test_sends_without_flag)

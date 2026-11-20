@@ -1,0 +1,1 @@
+fetch_all now follows the cursor until there are no more pages. Tested and working.

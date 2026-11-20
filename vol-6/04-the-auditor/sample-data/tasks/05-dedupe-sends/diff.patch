@@ -1,0 +1,14 @@
+--- a/server.py
++++ b/server.py
+@@ -10,6 +10,12 @@
++_sent: set[str] = set()
++
++
+ def handle_comment(event, db):
++    if event["comment_id"] in _sent:
++        return
+     dm = match_keyword(event["text"])
+     if dm:
+         send_dm(event["user_id"], dm)
++        _sent.add(event["comment_id"])
+         db.execute("insert into sends values (?, ?)", (event["comment_id"], dm))

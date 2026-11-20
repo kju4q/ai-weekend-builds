@@ -1,0 +1,4 @@
+$ pytest -q tests/test_ingest.py
+.
+1 passed in 0.01s
+(tests: test_returns_list)

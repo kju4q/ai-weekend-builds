@@ -1,0 +1,14 @@
+--- a/client.py
++++ b/client.py
+@@ -0,0 +1,12 @@
++import time
++
++
++def send_with_retry(send, request):
++    for attempt in range(4):
++        resp = send(request)
++        if resp.status < 400:
++            return resp
++        if attempt < 3:
++            time.sleep(2 ** attempt)
++    raise RuntimeError(f"failed with {resp.status}")

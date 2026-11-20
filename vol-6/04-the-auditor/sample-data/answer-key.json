@@ -1,0 +1,38 @@
+{
+ "_note": "Invented sample tasks. Five have one planted defect each, 06 is clean. agent-summary.txt is what the agent said when it finished: the packet must never include it.",
+ "tasks": {
+  "01-slugify": {
+   "defect": true,
+   "file": "text_utils.py",
+   "line": 6,
+   "problem": "Repeated hyphens are not collapsed and leading or trailing hyphens are not stripped, so the example in the task returns 'hello--world' instead of 'hello-world'. No test covers it."
+  },
+  "02-parse-amount": {
+   "defect": true,
+   "file": "money.py",
+   "line": 5,
+   "problem": "Parentheses are stripped but the value is not negated, so '(12.00)' returns 12.0 instead of -12.0. The summary claims parentheses are handled. No test covers it."
+  },
+  "03-pagination": {
+   "defect": true,
+   "file": "ingest.py",
+   "line": 4,
+   "problem": "The loop exits before adding the items of the page whose next is None, so the last page is always dropped, and a single-page response returns nothing."
+  },
+  "04-retry": {
+   "defect": true,
+   "file": "client.py",
+   "line": 7,
+   "problem": "Every error status is retried, not only 429, so a 400 or 401 is retried three times with sleeps instead of raised immediately."
+  },
+  "05-dedupe-sends": {
+   "defect": true,
+   "file": "server.py",
+   "line": 10,
+   "problem": "Sent ids are kept in an in-memory set, which is empty after a restart, so a redelivered event after a restart sends a second DM. The check should read the sends table."
+  },
+  "06-dry-run-flag": {
+   "defect": false
+  }
+ }
+}

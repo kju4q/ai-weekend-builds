@@ -1,0 +1,55 @@
+{
+ "_note": "Invented sample data. No real accounts or people.",
+ "data": [
+  {
+   "id": "p1",
+   "timestamp": "2026-11-02T18:00:00Z",
+   "caption": "I trained a tiny model on my laptop. Comment LINK for the repo.",
+   "media_type": "VIDEO",
+   "like_count": 412,
+   "comments_count": 15,
+   "saves": 188,
+   "reach": 9100
+  },
+  {
+   "id": "p2",
+   "timestamp": "2026-11-05T18:00:00Z",
+   "caption": "My whole desk setup for building at night",
+   "media_type": "IMAGE",
+   "like_count": 233,
+   "comments_count": 9,
+   "saves": 41,
+   "reach": 5200
+  },
+  {
+   "id": "p3",
+   "timestamp": "2026-11-08T18:00:00Z",
+   "caption": "Five weekend builds, comment LINK and I will send them",
+   "media_type": "CAROUSEL_ALBUM",
+   "like_count": 690,
+   "comments_count": 20,
+   "saves": 402,
+   "reach": 15400
+  },
+  {
+   "id": "p4",
+   "timestamp": "2026-11-12T18:00:00Z",
+   "caption": "What an agent actually does when it says done",
+   "media_type": "VIDEO",
+   "like_count": 301,
+   "comments_count": 4,
+   "saves": 120,
+   "reach": 7700
+  },
+  {
+   "id": "p5",
+   "timestamp": "2026-11-15T18:00:00Z",
+   "caption": "Local model vs cloud model, same task, different bill",
+   "media_type": "VIDEO",
+   "like_count": 188,
+   "comments_count": 12,
+   "saves": 95,
+   "reach": 4100
+  }
+ ]
+}

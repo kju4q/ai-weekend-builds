@@ -1,0 +1,11 @@
+--- a/text_utils.py
++++ b/text_utils.py
+@@ -1,3 +1,10 @@
+ import re
++
++
++def slugify(title: str) -> str:
++    s = title.lower().strip()
++    s = s.replace(" ", "-")
++    s = re.sub(r"[^a-z0-9-]", "", s)
++    return s

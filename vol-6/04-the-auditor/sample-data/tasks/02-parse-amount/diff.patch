@@ -1,0 +1,9 @@
+--- a/money.py
++++ b/money.py
+@@ -0,0 +1,7 @@
++def parse_amount(s: str) -> float:
++    s = s.strip()
++    if not s:
++        raise ValueError("empty amount")
++    s = s.replace(",", "").replace("(", "").replace(")", "")
++    return float(s)

@@ -1,0 +1,30 @@
+{"id": "q01", "task": "summarize", "prompt": "Summarize this in two sentences: The meeting moved to Thursday at 3pm because the venue double-booked. Bring the slides.", "private": false, "expected_route": "local"}
+{"id": "q02", "task": "summarize", "prompt": "Summarize this email thread and list who owes what by when: {12 invented emails, about 4,000 words}", "private": false, "expected_route": "cloud"}
+{"id": "q03", "task": "classify", "prompt": "Is this message spam? 'Congrats, you won a cruise, click here'", "private": false, "expected_route": "local"}
+{"id": "q04", "task": "classify", "prompt": "Label this bank transaction with one category: 'TST* BLUE BOTTLE 0423'", "private": false, "expected_route": "local"}
+{"id": "q05", "task": "extract", "prompt": "Extract the date, amount and vendor from: 'Invoice 2231 from Northwind, due 2026-12-01, total 480.00 EUR'", "private": false, "expected_route": "local"}
+{"id": "q06", "task": "rewrite", "prompt": "Make this friendlier: 'Send me the file.'", "private": false, "expected_route": "local"}
+{"id": "q07", "task": "rewrite", "prompt": "Rewrite my 1,200 word essay for a general audience, keep my voice, flag claims that need a source", "private": false, "expected_route": "cloud"}
+{"id": "q08", "task": "code", "prompt": "Write a Python function that reverses a string", "private": false, "expected_route": "local"}
+{"id": "q09", "task": "code", "prompt": "Find the race condition in this 300 line async webhook handler: {code}", "private": false, "expected_route": "cloud"}
+{"id": "q10", "task": "code", "prompt": "Explain what this regex does: ^\\d{4}-\\d{2}-\\d{2}$", "private": false, "expected_route": "local"}
+{"id": "q11", "task": "reason", "prompt": "Compare three job offers with these salaries, commutes and equity terms and tell me which tradeoffs matter most: {details}", "private": false, "expected_route": "cloud"}
+{"id": "q12", "task": "reason", "prompt": "Plan a four step migration from SQLite to Postgres for a small app with zero downtime", "private": false, "expected_route": "cloud"}
+{"id": "q13", "task": "chat", "prompt": "What is a good name for a grey cat?", "private": false, "expected_route": "local"}
+{"id": "q14", "task": "chat", "prompt": "Translate 'where is the train station' into Albanian", "private": false, "expected_route": "local"}
+{"id": "q15", "task": "summarize", "prompt": "Summarize my journal entries from this week and tell me what I seem worried about: {entries}", "private": true, "expected_route": "local"}
+{"id": "q16", "task": "extract", "prompt": "Pull every medication and dose out of these doctor notes: {notes}", "private": true, "expected_route": "local"}
+{"id": "q17", "task": "reason", "prompt": "Given my bank CSV, where can I cut 200 a month? {csv}", "private": true, "expected_route": "local"}
+{"id": "q18", "task": "chat", "prompt": "Draft a reply to my sister about the holiday plans: {her message}", "private": true, "expected_route": "local"}
+{"id": "q19", "task": "classify", "prompt": "Sort these 40 support tickets into bug, billing, feature request or other: {tickets}", "private": false, "expected_route": "unsure"}
+{"id": "q20", "task": "summarize", "prompt": "Turn this 20 minute meeting transcript into decisions and action items: {transcript}", "private": false, "expected_route": "unsure"}
+{"id": "q21", "task": "extract", "prompt": "Turn this messy recipe text into JSON with ingredients and steps: {recipe}", "private": false, "expected_route": "unsure"}
+{"id": "q22", "task": "rewrite", "prompt": "Shorten this paragraph to under 50 words: {paragraph}", "private": false, "expected_route": "local"}
+{"id": "q23", "task": "code", "prompt": "Write a SQL query for the top 5 customers by revenue last month given this schema: {schema}", "private": false, "expected_route": "unsure"}
+{"id": "q24", "task": "reason", "prompt": "Read this 30 page contract and list anything unusual about termination: {contract}", "private": false, "expected_route": "cloud"}
+{"id": "q25", "task": "chat", "prompt": "Explain what a token is to a 12 year old", "private": false, "expected_route": "local"}
+{"id": "q26", "task": "code", "prompt": "Refactor this 800 line module into smaller files and keep the tests passing: {code}", "private": false, "expected_route": "cloud"}
+{"id": "q27", "task": "classify", "prompt": "Is this review positive or negative? 'Arrived late but the quality made up for it'", "private": false, "expected_route": "local"}
+{"id": "q28", "task": "summarize", "prompt": "Give me the three main arguments of this 6,000 word article: {article}", "private": false, "expected_route": "unsure"}
+{"id": "q29", "task": "reason", "prompt": "Is 17077 a prime number? Show the check.", "private": false, "expected_route": "unsure"}
+{"id": "q30", "task": "extract", "prompt": "Find every person and company mentioned in this 2 page press release: {text}", "private": false, "expected_route": "local"}

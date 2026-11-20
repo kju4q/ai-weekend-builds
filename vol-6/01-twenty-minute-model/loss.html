@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loss Curve</title>
+<style>
+  :root { --bg:#fbfaf7; --fg:#1d1d1b; --muted:#6b6a64; --grid:#e4e2db; --train:#2f6fdf; --val:#d9480f; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#151514; --fg:#ecebe6; --muted:#9b9a93; --grid:#2c2b28; --train:#7aa7ff; --val:#ff8a4c; }
+  }
+  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.5 -apple-system, system-ui, sans-serif; }
+  main { max-width:860px; margin:0 auto; padding:24px 16px 48px; }
+  h1 { font-size:22px; margin:0 0 4px; }
+  p { color:var(--muted); margin:0 0 16px; }
+  svg { width:100%; height:auto; display:block; }
+  .axis { fill:var(--muted); font-size:12px; }
+  .grid { stroke:var(--grid); }
+  .legend { display:flex; gap:20px; font-size:13px; color:var(--muted); margin:8px 0 16px; flex-wrap:wrap; }
+  .sw { display:inline-block; width:14px; height:3px; vertical-align:middle; margin-right:6px; }
+  .stats { display:flex; gap:24px; flex-wrap:wrap; margin:16px 0; }
+  .stat b { display:block; font-size:22px; }
+  .stat span { color:var(--muted); font-size:13px; }
+  label { font-size:13px; color:var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Loss, step by step</h1>
+  <p>Cross-entropy on the next character. Lower means the model is less surprised by real text. Each dot is validation loss measured over 20 batches of held-out text. The thin line is the training loss, mostly one batch at a time, so it is noisier. This page makes no network requests.</p>
+  <div class="stats" id="stats"></div>
+  <div class="legend">
+    <span><i class="sw" style="background:var(--train)"></i>train loss</span>
+    <span><i class="sw" style="background:var(--val)"></i>validation loss (held-out text)</span>
+  </div>
+  <svg id="chart" viewBox="0 0 800 420" role="img" aria-label="Loss curve"></svg>
+  <p style="margin-top:16px"><label>Open another run: <input type="file" id="file" accept=".csv"></label></p>
+</main>
+<script>
+const ROWS = /*DATA*/[{"step": "0", "elapsed_s": "0.0", "train_loss": "4.3415", "val_loss": "4.3417", "lr": "1.00e-05"}, {"step": "25", "elapsed_s": "16.9", "train_loss": "2.7893", "val_loss": "", "lr": "2.50e-04"}, {"step": "50", "elapsed_s": "27.5", "train_loss": "2.5053", "val_loss": "", "lr": "5.00e-04"}, {"step": "75", "elapsed_s": "38.1", "train_loss": "2.4485", "val_loss": "", "lr": "7.50e-04"}, {"step": "100", "elapsed_s": "48.7", "train_loss": "2.4148", "val_loss": "2.4285", "lr": "1.00e-03"}, {"step": "125", "elapsed_s": "64.3", "train_loss": "2.4046", "val_loss": "", "lr": "9.94e-04"}, {"step": "150", "elapsed_s": "74.9", "train_loss": "2.3597", "val_loss": "", "lr": "9.92e-04"}, {"step": "175", "elapsed_s": "85.4", "train_loss": "2.3124", "val_loss": "", "lr": "9.89e-04"}, {"step": "200", "elapsed_s": "96.1", "train_loss": "2.2122", "val_loss": "", "lr": "9.86e-04"}, {"step": "225", "elapsed_s": "106.7", "train_loss": "2.0347", "val_loss": "", "lr": "9.83e-04"}, {"step": "250", "elapsed_s": "120.9", "train_loss": "1.8427", "val_loss": "1.8419", "lr": "9.79e-04"}, {"step": "275", "elapsed_s": "136.9", "train_loss": "1.8196", "val_loss": "", "lr": "9.72e-04"}, {"step": "300", "elapsed_s": "147.4", "train_loss": "1.7763", "val_loss": "", "lr": "9.67e-04"}, {"step": "325", "elapsed_s": "157.9", "train_loss": "1.6846", "val_loss": "", "lr": "9.62e-04"}, {"step": "350", "elapsed_s": "168.4", "train_loss": "1.6139", "val_loss": "", "lr": "9.57e-04"}, {"step": "375", "elapsed_s": "179.0", "train_loss": "1.5395", "val_loss": "", "lr": "9.52e-04"}, {"step": "400", "elapsed_s": "189.4", "train_loss": "1.5699", "val_loss": "", "lr": "9.46e-04"}, {"step": "425", "elapsed_s": "200.0", "train_loss": "1.5043", "val_loss": "", "lr": "9.40e-04"}, {"step": "450", "elapsed_s": "210.6", "train_loss": "1.4532", "val_loss": "", "lr": "9.34e-04"}, {"step": "475", "elapsed_s": "221.1", "train_loss": "1.4165", "val_loss": "", "lr": "9.27e-04"}, {"step": "500", "elapsed_s": "235.4", "train_loss": "1.3028", "val_loss": "1.3387", "lr": "9.20e-04"}, {"step": "525", "elapsed_s": "251.3", "train_loss": "1.3685", "val_loss": "", "lr": "9.07e-04"}, {"step": "550", "elapsed_s": "261.9", "train_loss": "1.3231", "val_loss": "", "lr": "8.99e-04"}, {"step": "575", "elapsed_s": "272.4", "train_loss": "1.3269", "val_loss": "", "lr": "8.91e-04"}, {"step": "600", "elapsed_s": "283.0", "train_loss": "1.315", "val_loss": "", "lr": "8.83e-04"}, {"step": "625", "elapsed_s": "293.6", "train_loss": "1.2979", "val_loss": "", "lr": "8.74e-04"}, {"step": "650", "elapsed_s": "304.0", "train_loss": "1.2733", "val_loss": "", "lr": "8.66e-04"}, {"step": "675", "elapsed_s": "314.6", "train_loss": "1.2531", "val_loss": "", "lr": "8.57e-04"}, {"step": "700", "elapsed_s": "325.0", "train_loss": "1.2338", "val_loss": "", "lr": "8.47e-04"}, {"step": "725", "elapsed_s": "335.6", "train_loss": "1.2247", "val_loss": "", "lr": "8.38e-04"}, {"step": "750", "elapsed_s": "346.3", "train_loss": "1.2123", "val_loss": "1.1906", "lr": "8.28e-04"}, {"step": "775", "elapsed_s": "360.5", "train_loss": "1.193", "val_loss": "", "lr": "8.15e-04"}, {"step": "800", "elapsed_s": "371.1", "train_loss": "1.175", "val_loss": "", "lr": "8.05e-04"}, {"step": "825", "elapsed_s": "381.7", "train_loss": "1.1851", "val_loss": "", "lr": "7.94e-04"}, {"step": "850", "elapsed_s": "392.2", "train_loss": "1.1592", "val_loss": "", "lr": "7.84e-04"}, {"step": "875", "elapsed_s": "402.6", "train_loss": "1.1326", "val_loss": "", "lr": "7.73e-04"}, {"step": "900", "elapsed_s": "413.2", "train_loss": "1.1505", "val_loss": "", "lr": "7.62e-04"}, {"step": "925", "elapsed_s": "423.6", "train_loss": "1.1387", "val_loss": "", "lr": "7.51e-04"}, {"step": "950", "elapsed_s": "434.2", "train_loss": "1.1218", "val_loss": "", "lr": "7.40e-04"}, {"step": "975", "elapsed_s": "444.7", "train_loss": "1.096", "val_loss": "", "lr": "7.29e-04"}, {"step": "1000", "elapsed_s": "458.8", "train_loss": "1.0145", "val_loss": "1.1295", "lr": "7.17e-04"}, {"step": "1025", "elapsed_s": "474.8", "train_loss": "1.0768", "val_loss": "", "lr": "6.96e-04"}, {"step": "1050", "elapsed_s": "485.3", "train_loss": "1.067", "val_loss": "", "lr": "6.84e-04"}, {"step": "1075", "elapsed_s": "495.9", "train_loss": "1.0584", "val_loss": "", "lr": "6.72e-04"}, {"step": "1100", "elapsed_s": "506.4", "train_loss": "1.081", "val_loss": "", "lr": "6.60e-04"}, {"step": "1125", "elapsed_s": "517.0", "train_loss": "1.0534", "val_loss": "", "lr": "6.48e-04"}, {"step": "1150", "elapsed_s": "527.6", "train_loss": "1.0504", "val_loss": "", "lr": "6.36e-04"}, {"step": "1175", "elapsed_s": "538.4", "train_loss": "1.0574", "val_loss": "", "lr": "6.23e-04"}, {"step": "1200", "elapsed_s": "549.5", "train_loss": "1.0335", "val_loss": "", "lr": "6.10e-04"}, {"step": "1225", "elapsed_s": "559.9", "train_loss": "1.0468", "val_loss": "", "lr": "5.98e-04"}, {"step": "1250", "elapsed_s": "570.5", "train_loss": "1.0184", "val_loss": "1.1069", "lr": "5.86e-04"}, {"step": "1275", "elapsed_s": "584.7", "train_loss": "1.0356", "val_loss": "", "lr": "5.69e-04"}, {"step": "1300", "elapsed_s": "595.2", "train_loss": "1.0039", "val_loss": "", "lr": "5.57e-04"}, {"step": "1325", "elapsed_s": "605.8", "train_loss": "1.0138", "val_loss": "", "lr": "5.44e-04"}, {"step": "1350", "elapsed_s": "616.4", "train_loss": "0.9757", "val_loss": "", "lr": "5.32e-04"}, {"step": "1375", "elapsed_s": "626.9", "train_loss": "0.9773", "val_loss": "", "lr": "5.19e-04"}, {"step": "1400", "elapsed_s": "637.4", "train_loss": "0.9871", "val_loss": "", "lr": "5.07e-04"}, {"step": "1425", "elapsed_s": "648.0", "train_loss": "0.9617", "val_loss": "", "lr": "4.95e-04"}, {"step": "1450", "elapsed_s": "658.5", "train_loss": "0.9715", "val_loss": "", "lr": "4.82e-04"}, {"step": "1475", "elapsed_s": "669.0", "train_loss": "0.9657", "val_loss": "", "lr": "4.70e-04"}, {"step": "1500", "elapsed_s": "683.2", "train_loss": "0.8659", "val_loss": "1.0981", "lr": "4.58e-04"}, {"step": "1525", "elapsed_s": "699.0", "train_loss": "0.9654", "val_loss": "", "lr": "4.36e-04"}, {"step": "1550", "elapsed_s": "709.6", "train_loss": "0.927", "val_loss": "", "lr": "4.24e-04"}, {"step": "1575", "elapsed_s": "720.7", "train_loss": "0.9568", "val_loss": "", "lr": "4.11e-04"}, {"step": "1600", "elapsed_s": "731.2", "train_loss": "0.9473", "val_loss": "", "lr": "3.99e-04"}, {"step": "1625", "elapsed_s": "741.6", "train_loss": "0.9338", "val_loss": "", "lr": "3.88e-04"}, {"step": "1650", "elapsed_s": "752.1", "train_loss": "0.9249", "val_loss": "", "lr": "3.76e-04"}, {"step": "1675", "elapsed_s": "762.5", "train_loss": "0.9225", "val_loss": "", "lr": "3.65e-04"}, {"step": "1700", "elapsed_s": "773.0", "train_loss": "0.8974", "val_loss": "", "lr": "3.54e-04"}, {"step": "1725", "elapsed_s": "783.4", "train_loss": "0.918", "val_loss": "", "lr": "3.43e-04"}, {"step": "1750", "elapsed_s": "794.0", "train_loss": "0.8966", "val_loss": "1.1123", "lr": "3.32e-04"}, {"step": "1775", "elapsed_s": "808.6", "train_loss": "0.8881", "val_loss": "", "lr": "3.17e-04"}, {"step": "1800", "elapsed_s": "819.0", "train_loss": "0.907", "val_loss": "", "lr": "3.07e-04"}, {"step": "1825", "elapsed_s": "829.5", "train_loss": "0.8812", "val_loss": "", "lr": "2.96e-04"}, {"step": "1850", "elapsed_s": "839.9", "train_loss": "0.8732", "val_loss": "", "lr": "2.86e-04"}, {"step": "1875", "elapsed_s": "850.4", "train_loss": "0.8782", "val_loss": "", "lr": "2.76e-04"}, {"step": "1900", "elapsed_s": "860.9", "train_loss": "0.886", "val_loss": "", "lr": "2.67e-04"}, {"step": "1925", "elapsed_s": "871.5", "train_loss": "0.8624", "val_loss": "", "lr": "2.57e-04"}, {"step": "1950", "elapsed_s": "882.2", "train_loss": "0.8557", "val_loss": "", "lr": "2.48e-04"}, {"step": "1975", "elapsed_s": "892.7", "train_loss": "0.8704", "val_loss": "", "lr": "2.39e-04"}, {"step": "2000", "elapsed_s": "906.8", "train_loss": "0.7404", "val_loss": "1.1164", "lr": "2.30e-04"}, {"step": "2025", "elapsed_s": "922.3", "train_loss": "0.8435", "val_loss": "", "lr": "2.14e-04"}, {"step": "2050", "elapsed_s": "932.6", "train_loss": "0.8533", "val_loss": "", "lr": "2.06e-04"}, {"step": "2075", "elapsed_s": "942.8", "train_loss": "0.8456", "val_loss": "", "lr": "1.99e-04"}, {"step": "2100", "elapsed_s": "953.1", "train_loss": "0.8403", "val_loss": "", "lr": "1.91e-04"}, {"step": "2125", "elapsed_s": "963.4", "train_loss": "0.8271", "val_loss": "", "lr": "1.84e-04"}, {"step": "2150", "elapsed_s": "973.7", "train_loss": "0.83", "val_loss": "", "lr": "1.77e-04"}, {"step": "2175", "elapsed_s": "983.9", "train_loss": "0.8228", "val_loss": "", "lr": "1.71e-04"}, {"step": "2200", "elapsed_s": "994.1", "train_loss": "0.832", "val_loss": "", "lr": "1.64e-04"}, {"step": "2225", "elapsed_s": "1004.4", "train_loss": "0.8049", "val_loss": "", "lr": "1.58e-04"}, {"step": "2250", "elapsed_s": "1014.7", "train_loss": "0.8101", "val_loss": "1.1381", "lr": "1.52e-04"}, {"step": "2275", "elapsed_s": "1029.2", "train_loss": "0.8077", "val_loss": "", "lr": "1.45e-04"}, {"step": "2300", "elapsed_s": "1039.5", "train_loss": "0.8004", "val_loss": "", "lr": "1.40e-04"}, {"step": "2325", "elapsed_s": "1049.7", "train_loss": "0.8013", "val_loss": "", "lr": "1.35e-04"}, {"step": "2350", "elapsed_s": "1059.9", "train_loss": "0.7897", "val_loss": "", "lr": "1.30e-04"}, {"step": "2375", "elapsed_s": "1070.2", "train_loss": "0.7986", "val_loss": "", "lr": "1.26e-04"}, {"step": "2400", "elapsed_s": "1080.4", "train_loss": "0.8103", "val_loss": "", "lr": "1.22e-04"}, {"step": "2425", "elapsed_s": "1090.7", "train_loss": "0.7981", "val_loss": "", "lr": "1.19e-04"}, {"step": "2450", "elapsed_s": "1101.0", "train_loss": "0.8074", "val_loss": "", "lr": "1.15e-04"}, {"step": "2475", "elapsed_s": "1111.2", "train_loss": "0.7893", "val_loss": "", "lr": "1.12e-04"}, {"step": "2500", "elapsed_s": "1121.5", "train_loss": "0.7811", "val_loss": "1.1512", "lr": "1.10e-04"}, {"step": "2525", "elapsed_s": "1135.3", "train_loss": "0.7903", "val_loss": "", "lr": "1.07e-04"}, {"step": "2550", "elapsed_s": "1145.6", "train_loss": "0.7741", "val_loss": "", "lr": "1.05e-04"}, {"step": "2575", "elapsed_s": "1155.9", "train_loss": "0.7832", "val_loss": "", "lr": "1.03e-04"}, {"step": "2600", "elapsed_s": "1166.2", "train_loss": "0.7794", "val_loss": "", "lr": "1.02e-04"}, {"step": "2625", "elapsed_s": "1176.5", "train_loss": "0.7791", "val_loss": "", "lr": "1.01e-04"}, {"step": "2650", "elapsed_s": "1186.8", "train_loss": "0.7798", "val_loss": "", "lr": "1.00e-04"}, {"step": "2675", "elapsed_s": "1197.1", "train_loss": "0.7675", "val_loss": "", "lr": "1.00e-04"}, {"step": "2683", "elapsed_s": "1200.4", "train_loss": "0.6322", "val_loss": "1.1592", "lr": "1.00e-04"}]/*END*/;
+
+function parseCsv(text) {
+  const [head, ...lines] = text.trim().split(/\r?\n/);
+  const keys = head.split(",");
+  return lines.map(l => Object.fromEntries(l.split(",").map((v, i) => [keys[i], v])));
+}
+
+function draw(rows) {
+  const svg = document.getElementById("chart");
+  const pts = rows.map(r => ({ step:+r.step, min:+r.elapsed_s / 60, train:+r.train_loss,
+                               val: r.val_loss === "" ? null : +r.val_loss }));
+  if (!pts.length) { svg.innerHTML = '<text x="400" y="210" text-anchor="middle" class="axis">No data yet. Run python train.py, then open output/loss.html.</text>'; return; }
+  const W = 800, H = 420, L = 52, R = 16, T = 16, B = 44;
+  const maxStep = Math.max(...pts.map(p => p.step));
+  const ys = pts.flatMap(p => [p.train, p.val]).filter(v => v != null);
+  const yMax = Math.ceil(Math.max(...ys) * 2) / 2, yMin = Math.floor(Math.min(...ys) * 2) / 2;
+  const x = s => L + (W - L - R) * s / maxStep;
+  const y = v => T + (H - T - B) * (yMax - v) / (yMax - yMin);
+  let g = "";
+  for (let v = yMin; v <= yMax + 1e-9; v += 0.5) {
+    g += `<line class="grid" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/>`;
+    g += `<text class="axis" x="${L - 8}" y="${y(v) + 4}" text-anchor="end">${v.toFixed(1)}</text>`;
+  }
+  const tick = Math.pow(10, Math.floor(Math.log10(maxStep))) / (maxStep / Math.pow(10, Math.floor(Math.log10(maxStep))) < 3 ? 2 : 1);
+  for (let s = 0; s <= maxStep; s += tick) {
+    g += `<text class="axis" x="${x(s)}" y="${H - B + 18}" text-anchor="middle">${s}</text>`;
+  }
+  g += `<text class="axis" x="${(L + W - R) / 2}" y="${H - 6}" text-anchor="middle">training step</text>`;
+  const line = (key, color, width) => {
+    const d = pts.filter(p => p[key] != null).map((p, i) => `${i ? "L" : "M"}${x(p.step).toFixed(1)},${y(p[key]).toFixed(1)}`).join("");
+    return `<path d="${d}" fill="none" stroke="${color}" stroke-width="${width}" stroke-linejoin="round"/>`;
+  };
+  g += line("train", "var(--train)", 1.5) + line("val", "var(--val)", 2.5);
+  pts.filter(p => p.val != null).forEach(p => {
+    g += `<circle cx="${x(p.step)}" cy="${y(p.val)}" r="3.5" fill="var(--val)"><title>step ${p.step}: val ${p.val}</title></circle>`;
+  });
+  svg.innerHTML = g;
+  const last = pts[pts.length - 1], vals = pts.filter(p => p.val != null);
+  const lastVal = vals.length ? vals[vals.length - 1].val.toFixed(3) : "n/a";
+  document.getElementById("stats").innerHTML =
+    `<div class="stat"><b>${last.step}</b><span>steps</span></div>` +
+    `<div class="stat"><b>${last.min.toFixed(1)} min</b><span>wall clock</span></div>` +
+    `<div class="stat"><b>${last.train.toFixed(3)}</b><span>last train loss</span></div>` +
+    `<div class="stat"><b>${lastVal}</b><span>last validation loss</span></div>`;
+}
+
+document.getElementById("file").addEventListener("change", e => {
+  const f = e.target.files[0];
+  if (f) f.text().then(t => draw(parseCsv(t)));
+});
+draw(ROWS);
+</script>
+</body>
+</html>

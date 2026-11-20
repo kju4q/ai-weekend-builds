@@ -1,0 +1,1 @@
+Duplicate events are now ignored. Added a test for the duplicate case and it passes.

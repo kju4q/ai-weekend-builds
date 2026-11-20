@@ -1,0 +1,53 @@
+{
+ "_note": "Invented sample data.",
+ "data": [
+  {
+   "id": "d01",
+   "from": "invented_user_03",
+   "timestamp": "2026-11-03T09:12:00Z",
+   "text": "Hi! Loved the tiny model video. What laptop do you use?"
+  },
+  {
+   "id": "d02",
+   "from": "invented_user_17",
+   "timestamp": "2026-11-03T11:40:00Z",
+   "text": "Did not get the link after commenting"
+  },
+  {
+   "id": "d03",
+   "from": "invented_user_22",
+   "timestamp": "2026-11-06T20:05:00Z",
+   "text": "Would you do a collab?"
+  },
+  {
+   "id": "d04",
+   "from": "invented_user_31",
+   "timestamp": "2026-11-09T08:30:00Z",
+   "text": "Can a complete beginner build the arena one?"
+  },
+  {
+   "id": "d05",
+   "from": "invented_user_40",
+   "timestamp": "2026-11-09T13:15:00Z",
+   "text": "how much does the API cost for these"
+  },
+  {
+   "id": "d06",
+   "from": "invented_user_44",
+   "timestamp": "2026-11-10T22:50:00Z",
+   "text": "commented LINK twice, nothing came"
+  },
+  {
+   "id": "d07",
+   "from": "invented_user_52",
+   "timestamp": "2026-11-13T07:02:00Z",
+   "text": "Which model do you recommend for a mac with 16GB?"
+  },
+  {
+   "id": "d08",
+   "from": "invented_user_58",
+   "timestamp": "2026-11-16T16:45:00Z",
+   "text": "Thank you for these, built the money map this weekend"
+  }
+ ]
+}
